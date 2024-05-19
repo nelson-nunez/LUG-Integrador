@@ -22,5 +22,16 @@ namespace LUGIntegrador.Modelo
 
             Matricula = matricula;
         }
+
+        public override object RetornarVista()
+        {
+            var vista = new
+            {
+                Nombre = this.Nombre,
+                Apellido = this.Apellido,
+                Matricula = this.Matricula,
+            };
+            return vista;
+        }
     }
 }

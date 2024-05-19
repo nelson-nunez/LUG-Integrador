@@ -34,5 +34,18 @@ namespace LUGIntegrador.Modelo
             Estadisticas = new List<Estadistica>();
             Convocatorias = new List<Convocatoria>();
         }
+
+        public override object RetornarVista()
+        {
+            var vista = new
+            {
+                Nombre = this.Nombre,
+                Apellido = this.Apellido,
+                DNI = this.DNI,
+                Posicion = this.Posicion,
+                Edad = this.Edad
+            };
+            return vista;
+        }
     }
 }

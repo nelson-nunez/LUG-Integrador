@@ -15,5 +15,8 @@ namespace LUGIntegrador.Modelo
         public string DNI { get; set; }
         public string Telefono { get; set; }
         public DateTime FechaNacimiento { get; set; }
+
+
+        public abstract object RetornarVista();
     }
 }

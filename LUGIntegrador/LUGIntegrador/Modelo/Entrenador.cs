@@ -23,5 +23,17 @@ namespace LUGIntegrador.Modelo
             NumeroLicencia = numeroLicencia;
             Titulo = titulo;
         }
+
+        public override object RetornarVista()
+        {
+            var vista = new
+            {
+                Nombre = this.Nombre,
+                Apellido = this.Apellido,
+                NumeroLicencia = this.NumeroLicencia,
+                Titulo = this.Titulo
+            };
+            return vista;
+        }
     }
 }
