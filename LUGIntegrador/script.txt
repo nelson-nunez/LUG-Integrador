@@ -1,0 +1,128 @@
+-- Crear tablas
+CREATE TABLE AnalistaDeportivo (
+    Id BIGINT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Apellido NVARCHAR(100),
+    DNI NVARCHAR(50),
+    Telefono NVARCHAR(50),
+    FechaNacimiento DATE,
+    Matricula NVARCHAR(50)
+);
+
+CREATE TABLE Entrenador (
+    Id BIGINT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Apellido NVARCHAR(100),
+    DNI NVARCHAR(50),
+    Telefono NVARCHAR(50),
+    FechaNacimiento DATE,
+    NumeroLicencia NVARCHAR(50),
+    Titulo NVARCHAR(100)
+);
+
+CREATE TABLE Equipo (
+    Id BIGINT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Descripcion NVARCHAR(255)
+);
+
+CREATE TABLE Jugador (
+    Id BIGINT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Apellido NVARCHAR(100),
+    DNI NVARCHAR(50),
+    Telefono NVARCHAR(50),
+    FechaNacimiento DATE,
+    Posicion NVARCHAR(50),
+    Edad INT,
+    Altura INT,
+    Peso INT,
+    EquipoId BIGINT,
+    FOREIGN KEY (EquipoId) REFERENCES Equipo(Id)
+);
+
+CREATE TABLE Campeonato (
+    Id BIGINT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    FechaInicio DATE,
+    FechaFin DATE,
+    CantidadPartidos INT,
+    CantidadJugadores INT
+);
+
+CREATE TABLE Partido (
+    Id BIGINT PRIMARY KEY,
+    Fecha DATE,
+    Duracion INT,
+    NumeroCancha INT,
+    Ubicacion NVARCHAR(255),
+    Categoria NVARCHAR(100),
+    CampeonatoId BIGINT,
+    FOREIGN KEY (CampeonatoId) REFERENCES Campeonato(Id)
+);
+
+CREATE TABLE Convocatoria (
+    Id BIGINT PRIMARY KEY,
+    Posicion NVARCHAR(50),
+    Confirmacion BIT,
+    Fecha DATE,
+    Duracion TIME,
+    Ubicacion NVARCHAR(255),
+    JugadorId BIGINT,
+    PartidoId BIGINT,
+    FOREIGN KEY (JugadorId) REFERENCES Jugador(Id),
+    FOREIGN KEY (PartidoId) REFERENCES Partido(Id)
+);
+
+CREATE TABLE Estadistica (
+    Id BIGINT PRIMARY KEY,
+    PasesConectados INT,
+    PasesFallados INT,
+    Asistencias INT,
+    KmRecorrido INT,
+    TarjetaRoja BIT,
+    TarjetaAmarilla BIT,
+    DuelosGanados INT,
+    DuelosPerdidos INT,
+    Bloqueos INT,
+    Disparos INT,
+    Goles INT,
+    Recuperaciones INT,
+    JugadorId BIGINT,
+    PartidoId BIGINT,
+    FOREIGN KEY (JugadorId) REFERENCES Jugador(Id),
+    FOREIGN KEY (PartidoId) REFERENCES Partido(Id)
+);
+
+-- Insertar datos de ejemplo
+-- Insertar en AnalistaDeportivo
+INSERT INTO AnalistaDeportivo (Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, Matricula) 
+VALUES (1, 'Carlos', 'Perez', '12345678A', '123-456-789', '1985-06-15', 'MAT123');
+
+-- Insertar en Entrenador
+INSERT INTO Entrenador (Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, NumeroLicencia, Titulo) 
+VALUES (2, 'Ana', 'Gomez', '87654321B', '987-654-321', '1978-09-22', 'LIC456', 'Entrenador Profesional');
+
+-- Insertar en Equipo
+INSERT INTO Equipo (Id, Nombre, Descripcion) 
+VALUES (3, 'Equipo A', 'Equipo de fútbol');
+
+-- Insertar en Jugador
+INSERT INTO Jugador (Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, Posicion, Edad, Altura, Peso, EquipoId) 
+VALUES (4, 'Luis', 'Martinez', '11223344C', '555-666-777', '1992-04-30', 'Delantero', 31, 180, 75, 3);
+
+-- Insertar en Campeonato
+INSERT INTO Campeonato (Id, Nombre, FechaInicio, FechaFin, CantidadPartidos, CantidadJugadores) 
+VALUES (5, 'Campeonato 2023', '2023-03-01', '2023-06-30', 20, 200);
+
+-- Insertar en Partido
+INSERT INTO Partido (Id, Fecha, Duracion, NumeroCancha, Ubicacion, Categoria, CampeonatoId) 
+VALUES (6, '2023-03-15', 90, 1, 'Estadio Central', 'Adultos', 5);
+
+-- Insertar en Convocatoria
+INSERT INTO Convocatoria (Id, Posicion, Confirmacion, Fecha, Duracion, Ubicacion, JugadorId, PartidoId) 
+VALUES (7, 'Delantero', 1, '2023-03-10', '01:30:00', 'Centro Deportivo', 4, 6);
+
+-- Insertar en Estadistica
+INSERT INTO Estadistica (Id, PasesConectados, PasesFallados, Asistencias, KmRecorrido, TarjetaRoja, TarjetaAmarilla, DuelosGanados, DuelosPerdidos, Bloqueos, Disparos, Goles, Recuperaciones, JugadorId, PartidoId) 
+VALUES (8, 50, 5, 2, 10, 0, 1, 20, 5, 3, 4, 1, 7, 4, 6);

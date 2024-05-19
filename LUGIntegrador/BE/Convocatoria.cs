@@ -1,11 +1,10 @@
-﻿using LUGIntegrador.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LUGIntegrador.Modelo
+namespace BE
 {
     public class Convocatoria: ClaseBase
     {
@@ -30,8 +29,8 @@ namespace LUGIntegrador.Modelo
             Ubicacion = ubicacion;
             Jugador = jugador;
             Partido = partido;
-            JugadorId = jugador.IdJugador;
-            PartidoId = partido.IdPartido;
+            JugadorId = jugador.Id;
+            PartidoId = partido.Id;
         }
     }
 }

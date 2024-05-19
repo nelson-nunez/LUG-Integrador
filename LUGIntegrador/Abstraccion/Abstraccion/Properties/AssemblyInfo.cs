@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("UI_LUGIntegrador")]
+[assembly: AssemblyTitle("Abstraccion")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("UI_LUGIntegrador")]
+[assembly: AssemblyProduct("Abstraccion")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // El siguiente GUID sirve como id. de typelib si este proyecto se expone a COM.
-[assembly: Guid("63fd4092-88c6-4634-9e34-2b9c607c044d")]
+[assembly: Guid("553aa774-fffc-4492-8839-839cb9c4ccf0")]
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //

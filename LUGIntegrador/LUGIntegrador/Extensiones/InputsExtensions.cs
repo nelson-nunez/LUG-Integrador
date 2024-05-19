@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LUGIntegrador.Extensiones
+namespace UI_LUGIntegrador.Extensiones
 {
     public static class InputsExtensions
     {

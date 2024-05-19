@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LUGIntegrador.Properties
+namespace UI_LUGIntegrador.Properties
 {
 
 

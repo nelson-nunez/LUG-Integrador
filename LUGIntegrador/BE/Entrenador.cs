@@ -4,14 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LUGIntegrador.Modelo
+namespace BE
 {
-    public class AnalistaDeportivo : Persona
+    public class Entrenador : Persona
     {
-        public string IdAnalista { get; set; }
-        public string Matricula { get; set; }
+        #region Propiedades
+        public string NumeroLicencia { get; set; }
+        public string Titulo { get; set; }
 
-        public AnalistaDeportivo(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento,  string matricula)
+        #endregion
+
+        #region Metodos
+
+        public Entrenador(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento, string numeroLicencia, string titulo)
         {
             Id = id;
             Nombre = nombre;
@@ -20,7 +25,8 @@ namespace LUGIntegrador.Modelo
             Telefono = telefono;
             FechaNacimiento = fechaNacimiento;
 
-            Matricula = matricula;
+            NumeroLicencia = numeroLicencia;
+            Titulo = titulo;
         }
 
         public override object RetornarVista()
@@ -29,9 +35,12 @@ namespace LUGIntegrador.Modelo
             {
                 Nombre = this.Nombre,
                 Apellido = this.Apellido,
-                Matricula = this.Matricula,
+                NumeroLicencia = this.NumeroLicencia,
+                Titulo = this.Titulo
             };
             return vista;
         }
+
+        #endregion
     }
 }

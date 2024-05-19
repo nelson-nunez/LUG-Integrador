@@ -5,10 +5,12 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LUGIntegrador.Modelo
+namespace BE
 {
     public class Jugador : Persona
     {
+        #region Propiedades
+
         public string Posicion { get; set; }
         public int Edad { get; set; }
         public int Altura { get; set; }
@@ -17,6 +19,10 @@ namespace LUGIntegrador.Modelo
         public virtual ICollection<Estadistica> Estadisticas { get; set; }
         public virtual ICollection<Convocatoria> Convocatorias { get; set; }
         public virtual Equipo Equipo { get; set; }
+
+        #endregion
+
+        #region Metodos
 
         public Jugador(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento, string posicion, int edad, int altura, int peso)
         {
@@ -47,5 +53,7 @@ namespace LUGIntegrador.Modelo
             };
             return vista;
         }
+
+        #endregion
     }
 }
