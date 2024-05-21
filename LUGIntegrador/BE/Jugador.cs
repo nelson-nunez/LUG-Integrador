@@ -15,16 +15,15 @@ namespace BE
         public int Edad { get; set; }
         public int Altura { get; set; }
         public int Peso { get; set; }
-
-        public virtual ICollection<Estadistica> Estadisticas { get; set; }
-        public virtual ICollection<Convocatoria> Convocatorias { get; set; }
         public virtual Equipo Equipo { get; set; }
+        public virtual ICollection<Partido> Partidos { get; set; }
+        public virtual ICollection<Convocatoria> Convocatorias { get; set; }
 
         #endregion
 
         #region Metodos
-
-        public Jugador(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento, string posicion, int edad, int altura, int peso)
+        public Jugador() { }
+        public Jugador(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento, string posicion, int edad, int altura, int peso, Equipo equipo, List<Partido> partidos, List<Convocatoria> convocatorias )
         {
             Id = id;
             Nombre=nombre;  
@@ -37,8 +36,9 @@ namespace BE
             Edad = edad;
             Altura = altura;
             Peso = peso;
-            Estadisticas = new List<Estadistica>();
-            Convocatorias = new List<Convocatoria>();
+            Equipo = equipo ?? new Equipo();
+            Partidos = partidos ?? new List<Partido>();
+            Convocatorias = convocatorias ?? new List<Convocatoria>();
         }
 
         public override object RetornarVista()

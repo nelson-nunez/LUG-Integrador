@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalistaDeportivo.cs" />
     <Compile Include="Campeonato.cs" />
     <Compile Include="ClaseBase.cs" />
     <Compile Include="Convocatoria.cs" />

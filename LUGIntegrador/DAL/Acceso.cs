@@ -12,8 +12,13 @@ namespace DAL
     public class Acceso
     {
         //declaro el objeto del tipo conection y uso el constructor para pasar el ConnectionString
-        private SqlConnection oCnn = new SqlConnection(ConfigurationManager.ConnectionStrings["MiCadenaDeConexion"].ToString());
+        private SqlConnection oCnn;
         private SqlTransaction Tranx;
+
+        public Acceso(SqlConnection connection = null)
+        {
+            oCnn = connection ?? new SqlConnection(ConfigurationManager.ConnectionStrings["MiCadenaDeConexion"].ToString());
+        }
 
         public string TestConnection()
         {

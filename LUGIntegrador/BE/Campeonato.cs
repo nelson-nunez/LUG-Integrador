@@ -16,7 +16,8 @@ namespace BE
 
         public virtual ICollection<Partido> Partidos { get; set; }
 
-        public Campeonato(long idCampeonato, string nombre, DateTime fechaInicio, DateTime fechaFin, int cantidadPartidos, int cantidadJugadores)
+        public Campeonato() { }
+        public Campeonato(long idCampeonato, string nombre, DateTime fechaInicio, DateTime fechaFin, int cantidadPartidos, int cantidadJugadores, List<Partido> partidos)
         {
             Id = idCampeonato;
             Nombre = nombre;
@@ -24,7 +25,7 @@ namespace BE
             FechaFin = fechaFin;
             CantidadPartidos = cantidadPartidos;
             CantidadJugadores = cantidadJugadores;
-            Partidos = new List<Partido>();
+            Partidos = partidos ?? new List<Partido>();
         }
     }
 }

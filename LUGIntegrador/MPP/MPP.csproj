@@ -42,7 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MPPCampeonato.cs" />
+    <Compile Include="MPPConvocatoria.cs" />
     <Compile Include="MPPEntrenador.cs" />
+    <Compile Include="MPPEquipo.cs" />
+    <Compile Include="MPPJugador.cs" />
+    <Compile Include="MPPPartido.cs" />
     <Compile Include="MPPPrueba.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

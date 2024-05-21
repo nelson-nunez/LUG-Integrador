@@ -13,11 +13,13 @@ namespace BE
         public int NumeroCancha { get; set; }
         public string Ubicacion { get; set; }
         public string Categoria { get; set; }
-
-        public virtual ICollection<Estadistica> Estadisticas { get; set; }
+        public long CampeonatoId { get; set; }
+        public virtual Campeonato Campeonato { get; set; }
+        public virtual ICollection<Jugador> Jugadores { get; set; }
         public virtual ICollection<Convocatoria> Convocatorias { get; set; }
 
-        public Partido(long idPartido, DateTime fecha, int duracion, int numeroCancha, string ubicacion, string categoria)
+        public Partido  () { }  
+        public Partido(long idPartido, DateTime fecha, int duracion, int numeroCancha, string ubicacion, string categoria, Campeonato campeonato, List<Jugador> jugadores, List<Convocatoria> convocatorias)
         {
             Id = idPartido;
             Fecha = fecha;
@@ -25,8 +27,9 @@ namespace BE
             NumeroCancha = numeroCancha;
             Ubicacion = ubicacion;
             Categoria = categoria;
-            Estadisticas = new List<Estadistica>();
-            Convocatorias = new List<Convocatoria>();
+            Campeonato = campeonato;
+            Jugadores = jugadores ?? new List<Jugador>();
+            Convocatorias = convocatorias ?? new List<Convocatoria>();
         }
     }
 }

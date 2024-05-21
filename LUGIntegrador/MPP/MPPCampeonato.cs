@@ -10,6 +10,11 @@ using System.Threading.Tasks;
 
 namespace MPP
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+
     public class MPPCampeonato : IGestor<Campeonato>
     {
         private Acceso oDatos;
@@ -35,13 +40,42 @@ namespace MPP
                         Convert.ToDateTime(fila["FechaInicio"]),
                         Convert.ToDateTime(fila["FechaFin"]),
                         Convert.ToInt32(fila["CantidadPartidos"]),
-                        Convert.ToInt32(fila["CantidadJugadores"])
+                        Convert.ToInt32(fila["CantidadJugadores"]),
+                        ListarPartidosPorCampeonato(Convert.ToInt64(fila["Id"]))
                     );
 
                     listaCampeonatos.Add(campeonato);
                 }
             }
             return listaCampeonatos;
+        }
+
+        private List<Partido> ListarPartidosPorCampeonato(long campeonatoId)
+        {
+            string consulta = $"SELECT Id, Fecha, Duracion, NumeroCancha, Ubicacion, Categoria FROM Partido WHERE CampeonatoId = {campeonatoId}";
+            DataSet ds = oDatos.Leer2(consulta);
+            List<Partido> listaPartidos = new List<Partido>();
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow fila in ds.Tables[0].Rows)
+                {
+                    Partido partido = new Partido(
+                        Convert.ToInt64(fila["Id"]),
+                        Convert.ToDateTime(fila["Fecha"]),
+                        Convert.ToInt32(fila["Duracion"]),
+                        Convert.ToInt32(fila["NumeroCancha"]),
+                        fila["Ubicacion"].ToString(),
+                        fila["Categoria"].ToString(),
+                        null,
+                        null,
+                        null
+                    );
+
+                    listaPartidos.Add(partido);
+                }
+            }
+            return listaPartidos;
         }
 
         public bool Guardar(Campeonato campeonato)
@@ -55,12 +89,13 @@ namespace MPP
             {
                 consultaSQL = $"INSERT INTO Campeonato (Nombre, FechaInicio, FechaFin, CantidadPartidos, CantidadJugadores) VALUES ('{campeonato.Nombre}', '{campeonato.FechaInicio:yyyy-MM-dd}', '{campeonato.FechaFin:yyyy-MM-dd}', {campeonato.CantidadPartidos}, {campeonato.CantidadJugadores})";
             }
-            return oDatos.Escribir(consultaSQL);
+            bool resultado = oDatos.Escribir(consultaSQL);
+            return resultado;
         }
 
         public bool AgregarPartido(Campeonato campeonato, Partido partido)
         {
-            string consulta = $"INSERT INTO Partido (CampeonatoId, EquipoLocal, EquipoVisitante, Fecha) VALUES ({campeonato.Id}, '{partido.EquipoLocal}', '{partido.EquipoVisitante}', '{partido.Fecha:yyyy-MM-dd HH:mm:ss}')";
+            string consulta = $"INSERT INTO Partido (Fecha, Duracion, NumeroCancha, Ubicacion, Categoria, CampeonatoId) VALUES ('{partido.Fecha:yyyy-MM-dd HH:mm:ss}', {partido.Duracion}, {partido.NumeroCancha}, '{partido.Ubicacion}', '{partido.Categoria}', {campeonato.Id})";
             return oDatos.Escribir(consulta);
         }
 
@@ -70,15 +105,15 @@ namespace MPP
             return oDatos.Escribir(consulta);
         }
 
-        public bool Baja(Campeonato campeonato)
+        public bool Baja(long Id)
         {
-            string consultaSQL = $"DELETE FROM Campeonato WHERE Id = {campeonato.Id}";
+            string consultaSQL = $"DELETE FROM Campeonato WHERE Id = {Id}";
             return oDatos.Escribir(consultaSQL);
         }
 
-        public Campeonato ListarObjeto(Campeonato campeonato)
+        public Campeonato ListarObjeto(long Id)
         {
-            string consulta = $"SELECT Id, Nombre, FechaInicio, FechaFin, CantidadPartidos, CantidadJugadores FROM Campeonato WHERE Id = {campeonato.Id}";
+            string consulta = $"SELECT Id, Nombre, FechaInicio, FechaFin, CantidadPartidos, CantidadJugadores FROM Campeonato WHERE Id = {Id}";
             DataSet ds = oDatos.Leer2(consulta);
 
             if (ds.Tables[0].Rows.Count > 0)
@@ -90,7 +125,8 @@ namespace MPP
                     Convert.ToDateTime(fila["FechaInicio"]),
                     Convert.ToDateTime(fila["FechaFin"]),
                     Convert.ToInt32(fila["CantidadPartidos"]),
-                    Convert.ToInt32(fila["CantidadJugadores"])
+                    Convert.ToInt32(fila["CantidadJugadores"]),
+                    ListarPartidosPorCampeonato(Convert.ToInt64(fila["Id"]))
                 );
             }
             return null;

@@ -11,12 +11,14 @@ namespace BE
         #region Propiedades
         public string NumeroLicencia { get; set; }
         public string Titulo { get; set; }
+        public virtual Equipo Equipo { get; set; }
 
         #endregion
 
         #region Metodos
 
-        public Entrenador(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento, string numeroLicencia, string titulo)
+        public Entrenador() { }
+        public Entrenador(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento, string numeroLicencia, string titulo, Equipo equipo)
         {
             Id = id;
             Nombre = nombre;
@@ -27,6 +29,7 @@ namespace BE
 
             NumeroLicencia = numeroLicencia;
             Titulo = titulo;
+            Equipo = equipo ?? new Equipo();
         }
 
         public override object RetornarVista()

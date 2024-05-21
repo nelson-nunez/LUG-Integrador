@@ -9,8 +9,8 @@ namespace Abstraccion
     public interface IGestor<T> where T : IEntidad
     {
         bool Guardar(T Objeto);
-        bool Baja(T Objeto);
+        bool Baja(long Id);
         List<T> ListarTodo();
-        T ListarObjeto(T Objeto);
+        T ListarObjeto(long Id);
     }
 }

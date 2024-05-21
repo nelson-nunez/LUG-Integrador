@@ -21,11 +21,10 @@ namespace BE
         public int Goles { get; set; }
         public int Recuperaciones { get; set; }
 
-        public long JugadorId { get; set; }
         public virtual Jugador Jugador { get; set; }
-        public long PartidoId { get; set; }
         public virtual Partido Partido { get; set; }
 
+        public Estadistica() { }
         public Estadistica(long idEstadistica, int pasesConectados, int pasesFallados, int asistencias, int kmRecorrido, bool tarjetaRoja, bool tarjetaAmarilla, int duelosGanados, int duelosPerdidos, int bloqueos, int disparos, int goles, int recuperaciones, Jugador jugador, Partido partido)
         {
             Id = idEstadistica;
@@ -41,10 +40,8 @@ namespace BE
             Disparos = disparos;
             Goles = goles;
             Recuperaciones = recuperaciones;
-            Jugador = jugador;
-            Partido = partido;
-            JugadorId = jugador.Id;
-            PartidoId = partido.Id;
+            Jugador = jugador ?? new Jugador();
+            Partido = partido ?? new Partido();
         }
     }
 }

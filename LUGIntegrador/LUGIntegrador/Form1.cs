@@ -15,7 +15,7 @@ namespace UI_LUGIntegrador
     {
         #region Blls
 
-        BLLEntrenador bllEntrenador;
+        //BLLEntrenador bllEntrenador;
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace UI_LUGIntegrador
         public Form1()
         {
             InitializeComponent();
-            bllEntrenador = new BLLEntrenador();
+            //bllEntrenador = new BLLEntrenador();
 
         }
 
@@ -33,7 +33,7 @@ namespace UI_LUGIntegrador
             //uso el metodo testconnection que me dice el estado de la conexion., Y USO EL CONSTRUCTOR DE MessageBox
             MessageBox.Show(oBLLPrueba.TestCX(), "PROBANDO", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            var tt = bllEntrenador.ListarTodo();
+            //var tt = bllEntrenador.ListarTodo();
             MessageBox.Show("asdasd");
         }
     }

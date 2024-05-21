@@ -13,12 +13,10 @@ namespace BE
         public DateTime Fecha { get; set; }
         public TimeSpan Duracion { get; set; }
         public string Ubicacion { get; set; }
-
-        public long JugadorId { get; set; }
         public virtual Jugador Jugador { get; set; }
-        public long PartidoId { get; set; }
         public virtual Partido Partido { get; set; }
 
+        public Convocatoria() { }
         public Convocatoria(long idConvocatoria, string posicion, bool confirmacion, DateTime fecha, TimeSpan duracion, string ubicacion, Jugador jugador, Partido partido)
         {
             Id = idConvocatoria;
@@ -27,10 +25,8 @@ namespace BE
             Fecha = fecha;
             Duracion = duracion;
             Ubicacion = ubicacion;
-            Jugador = jugador;
-            Partido = partido;
-            JugadorId = jugador.Id;
-            PartidoId = partido.Id;
+            Jugador = jugador ?? new Jugador();
+            Partido = partido ?? new Partido();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace MPP
 
         public List<Entrenador> ListarTodo()
         {
-            string consulta = "SELECT Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, NumeroLicencia, Titulo FROM Entrenador";
+            string consulta = "SELECT Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, NumeroLicencia, EquipoId, Titulo FROM Entrenador";
             DataSet ds = oDatos.Leer2(consulta);
             List<Entrenador> listaEntrenadores = new List<Entrenador>();
 
@@ -29,6 +29,8 @@ namespace MPP
             {
                 foreach (DataRow fila in ds.Tables[0].Rows)
                 {
+                    Equipo equipo = new MPPEquipo().ListarObjeto(Convert.ToInt64(fila["EquipoId"]));
+
                     Entrenador entrenador = new Entrenador(
                         Convert.ToInt64(fila["Id"]),
                         fila["Nombre"].ToString(),
@@ -37,7 +39,8 @@ namespace MPP
                         fila["Telefono"].ToString(),
                         Convert.ToDateTime(fila["FechaNacimiento"]),
                         fila["NumeroLicencia"].ToString(),
-                        fila["Titulo"].ToString()
+                        fila["Titulo"].ToString(),
+                        equipo
                     );
 
                     listaEntrenadores.Add(entrenador);
@@ -60,15 +63,15 @@ namespace MPP
             return oDatos.Escribir(consultaSQL);
         }
 
-        public bool Baja(Entrenador entrenador)
+        public bool Baja(long Id)
         {
-            string consultaSQL = $"DELETE FROM Entrenador WHERE Id = {entrenador.Id}";
+            string consultaSQL = $"DELETE FROM Entrenador WHERE Id = {Id}";
             return oDatos.Escribir(consultaSQL);
         }
 
-        public Entrenador ListarObjeto(Entrenador entrenador)
+        public Entrenador ListarObjeto(long Id)
         {
-            string consulta = $"SELECT Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, NumeroLicencia, Titulo FROM Entrenador WHERE Id = {entrenador.Id}";
+            string consulta = $"SELECT Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, NumeroLicencia, Titulo FROM Entrenador WHERE Id = {Id}";
             DataSet ds = oDatos.Leer2(consulta);
 
             if (ds.Tables[0].Rows.Count > 0)
@@ -82,11 +85,11 @@ namespace MPP
                     fila["Telefono"].ToString(),
                     Convert.ToDateTime(fila["FechaNacimiento"]),
                     fila["NumeroLicencia"].ToString(),
-                    fila["Titulo"].ToString()
+                    fila["Titulo"].ToString(),
+                    null // Equipo se asignará después
                 );
             }
             return null;
         }
     }
-
 }
