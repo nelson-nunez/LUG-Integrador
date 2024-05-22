@@ -47,18 +47,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensiones\DataGridViewExtensions.cs" />
-    <Compile Include="Extensiones\InputsExtensions.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Form_Campeonato.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Form_Campeonato.Designer.cs">
+      <DependentUpon>Form_Campeonato.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Equipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Equipo.Designer.cs">
+      <DependentUpon>Form_Equipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Menu.Designer.cs">
+      <DependentUpon>Form_Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Partidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Partidos.Designer.cs">
+      <DependentUpon>Form_Partidos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Persona.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Persona.Designer.cs">
+      <DependentUpon>Form_Persona.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Campeonato.resx">
+      <DependentUpon>Form_Campeonato.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Equipo.resx">
+      <DependentUpon>Form_Equipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Menu.resx">
+      <DependentUpon>Form_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Partidos.resx">
+      <DependentUpon>Form_Partidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Persona.resx">
+      <DependentUpon>Form_Persona.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -68,6 +102,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -83,6 +118,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Abstraccion\Abstraccion\Abstraccion.csproj">
+      <Project>{553aa774-fffc-4492-8839-839cb9c4ccf0}</Project>
+      <Name>Abstraccion</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BE\BE.csproj">
       <Project>{a3ddaea0-33cc-491a-8eed-aac9475f0d29}</Project>
       <Name>BE</Name>
@@ -91,6 +130,24 @@
       <Project>{114eec21-a8a1-4e31-81be-235e10b3c747}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\campo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pelota.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\personas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerrar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

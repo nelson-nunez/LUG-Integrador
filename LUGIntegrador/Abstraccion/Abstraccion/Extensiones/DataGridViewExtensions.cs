@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UI_LUGIntegrador.Extensiones
+namespace Abstraccion.Extensiones
 {
     public static class DataGridViewExtensions
     {

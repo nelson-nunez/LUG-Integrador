@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLCampeonato.cs" />
+    <Compile Include="BLLConvocatoria.cs" />
+    <Compile Include="BLLEntrenador.cs" />
+    <Compile Include="BLLEquipo.cs" />
+    <Compile Include="BLLPartido.cs" />
     <Compile Include="BLLPrueba.cs" />
     <Compile Include="ClsEncriptar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

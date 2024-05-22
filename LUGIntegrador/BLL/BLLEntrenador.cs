@@ -28,14 +28,14 @@ namespace BLL
             return oMPPEntrenador.Guardar(entrenador);
         }
 
-        public bool Baja(Entrenador entrenador)
+        public bool Baja(long Id)
         {
-            return oMPPEntrenador.Baja(entrenador);
+            return oMPPEntrenador.Baja(Id);
         }
 
-        public Entrenador ListarObjeto(Entrenador entrenador)
+        public Entrenador ListarObjeto(long Id)
         {
-            return oMPPEntrenador.ListarObjeto(entrenador);
+            return oMPPEntrenador.ListarObjeto(Id);
         }
     }
 }

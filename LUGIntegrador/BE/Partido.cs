@@ -13,7 +13,6 @@ namespace BE
         public int NumeroCancha { get; set; }
         public string Ubicacion { get; set; }
         public string Categoria { get; set; }
-        public long CampeonatoId { get; set; }
         public virtual Campeonato Campeonato { get; set; }
         public virtual ICollection<Jugador> Jugadores { get; set; }
         public virtual ICollection<Convocatoria> Convocatorias { get; set; }

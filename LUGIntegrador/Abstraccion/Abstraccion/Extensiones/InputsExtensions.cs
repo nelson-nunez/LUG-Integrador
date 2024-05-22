@@ -28,5 +28,14 @@ namespace UI_LUGIntegrador.Extensiones
 
             return fechaVencimiento;
         }
+
+        public static bool IsNOTNullOrEmpty<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable != null && enumerable.Any();
+        }
+        public static bool IsNOTNullOrEmpty<T>(this ICollection<T> enumerable)
+        {
+            return enumerable != null && enumerable.Any();
+        }
     }
 }
