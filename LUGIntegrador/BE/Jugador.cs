@@ -23,15 +23,15 @@ namespace BE
 
         #region Metodos
         public Jugador() { }
-        public Jugador(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento, string posicion, int edad, int altura, int peso, Equipo equipo, List<Partido> partidos, List<Convocatoria> convocatorias )
+        public Jugador(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento, string posicion, int edad, int altura, int peso, Equipo equipo, List<Partido> partidos, List<Convocatoria> convocatorias)
         {
             Id = id;
-            Nombre=nombre;  
-            Apellido=apellido;
-            DNI= dni;
+            Nombre = nombre;
+            Apellido = apellido;
+            DNI = dni;
             Telefono = telefono;
-            FechaNacimiento= fechaNacimiento;
-           
+            FechaNacimiento = fechaNacimiento;
+
             Posicion = posicion;
             Edad = edad;
             Altura = altura;
@@ -55,5 +55,26 @@ namespace BE
         }
 
         #endregion
+    }
+    public class JugadorView
+    {
+        public long Id { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string DNI { get; set; }
+        public string Posicion { get; set; }
+        public int Edad { get; set; }
+        public int Altura { get; set; }
+        public int Peso { get; set; }
+        public JugadorView(string nombre, string apellido, string dni,string posicion, int edad, int altura, int peso)
+        {
+            Nombre= nombre;
+            Apellido= apellido;
+            DNI=dni;
+            Posicion=posicion;
+            Edad = edad;
+            Altura= altura;
+            Peso= peso;
+        }
     }
 }

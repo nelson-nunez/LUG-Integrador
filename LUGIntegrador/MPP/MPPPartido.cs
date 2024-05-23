@@ -19,7 +19,7 @@ namespace MPP
             oDatos = new Acceso();
         }
 
-        public List<Partido> ListarTodo()
+        public List<Partido> ListarTodo(bool include)
         {
             string consulta = "SELECT Id, Fecha, Duracion, NumeroCancha, Ubicacion, Categoria FROM Partido";
             DataSet ds = oDatos.Leer2(consulta);
@@ -86,5 +86,37 @@ namespace MPP
             }
             return null;
         }
+
+        public List<Partido> ListarPartidosPorJugador(long jugadorId)
+        {
+            string consulta = $"SELECT p.Id, p.Fecha, p.Duracion, p.NumeroCancha, p.Ubicacion, p.Categoria " +
+                              $"FROM Partido p " +
+                              $"JOIN Convocatoria c ON p.Id = c.PartidoId " +
+                              $"WHERE c.JugadorId = {jugadorId}";
+            DataSet ds = oDatos.Leer2(consulta);
+            List<Partido> listaPartidos = new List<Partido>();
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow fila in ds.Tables[0].Rows)
+                {
+                    Partido partido = new Partido(
+                        Convert.ToInt64(fila["Id"]),
+                        Convert.ToDateTime(fila["Fecha"]),
+                        Convert.ToInt32(fila["Duracion"]),
+                        Convert.ToInt32(fila["NumeroCancha"]),
+                        fila["Ubicacion"].ToString(),
+                        fila["Categoria"].ToString(),
+                        null,
+                        null,
+                        null
+                    );
+
+                    listaPartidos.Add(partido);
+                }
+            }
+            return listaPartidos;
+        }
+
     }
 }

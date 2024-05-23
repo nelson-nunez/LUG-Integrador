@@ -20,14 +20,14 @@ namespace BLL
             oMPPCampeonato = new MPPCampeonato();
         }
 
-        public List<Campeonato> ListarTodo()
+        public List<Campeonato> ListarTodo(bool include)
         {
-            return oMPPCampeonato.ListarTodo();
+            return oMPPCampeonato.ListarTodo(include);
         }
 
         public List<Campeonato> ListarTodoConFixture()
         {
-            var list = oMPPCampeonato.ListarTodo();
+            var list = oMPPCampeonato.ListarTodo(true);
 
             return list.Where(X=>X.Partidos.IsNOTNullOrEmpty()).ToList();
         }

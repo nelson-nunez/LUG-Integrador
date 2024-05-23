@@ -24,7 +24,7 @@ namespace MPP
             oDatos = new Acceso();
         }
 
-        public List<Campeonato> ListarTodo()
+        public List<Campeonato> ListarTodo(bool include)
         {
             string consulta = "SELECT Id, Nombre, FechaInicio, FechaFin, CantidadPartidos, CantidadJugadores FROM Campeonato";
             DataSet ds = oDatos.Leer2(consulta);
@@ -41,7 +41,7 @@ namespace MPP
                         Convert.ToDateTime(fila["FechaFin"]),
                         Convert.ToInt32(fila["CantidadPartidos"]),
                         Convert.ToInt32(fila["CantidadJugadores"]),
-                        ListarPartidosPorCampeonato(Convert.ToInt64(fila["Id"]))
+                        include ? ListarPartidosPorCampeonato(Convert.ToInt64(fila["Id"])): null
                     );
 
                     listaCampeonatos.Add(campeonato);

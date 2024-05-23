@@ -19,7 +19,7 @@ namespace MPP
             oDatos = new Acceso();
         }
 
-        public List<Convocatoria> ListarTodo()
+        public List<Convocatoria> ListarTodo(bool include)
         {
             string consulta = "SELECT Id, Posicion, Confirmacion, Fecha, Duracion, Ubicacion, JugadorId, PartidoId FROM Convocatoria";
             DataSet ds = oDatos.Leer2(consulta);
@@ -29,9 +29,6 @@ namespace MPP
             {
                 foreach (DataRow fila in ds.Tables[0].Rows)
                 {
-                    Jugador jugador = new MPPJugador().ListarObjeto(Convert.ToInt64(fila["JugadorId"]));
-                    Partido partido = new MPPPartido().ListarObjeto(Convert.ToInt64(fila["PartidoId"]));
-
                     Convocatoria convocatoria = new Convocatoria(
                         Convert.ToInt64(fila["Id"]),
                         fila["Posicion"].ToString(),
@@ -39,9 +36,9 @@ namespace MPP
                         Convert.ToDateTime(fila["Fecha"]),
                         TimeSpan.FromHours(Convert.ToDouble(fila["Duracion"])),
                         fila["Ubicacion"].ToString(),
-                        jugador,
-                        partido
-                    );
+                        include ? new MPPJugador().ListarObjeto(Convert.ToInt64(fila["JugadorId"])) : null,
+                        include ? new MPPPartido().ListarObjeto(Convert.ToInt64(fila["PartidoId"])) : null
+                        );
 
                     listaConvocatorias.Add(convocatoria);
                 }
@@ -66,7 +63,7 @@ namespace MPP
             }
             else
             {
-                consultaSQL = $"INSERT INTO Convocatoria (Posicion, Confirmacion, Fecha, Duracion, Ubicacion, JugadorId, PartidoId) VALUES ('{convocatoria.Posicion}', {Convert.ToInt32(convocatoria.Confirmacion)}, '{convocatoria.Fecha:yyyy-MM-dd HH:mm:ss}', {convocatoria.Duracion.TotalHours}, '{convocatoria.Ubicacion}', {convocatoria.Jugador.Id}, {convocatoria.Partido.Id})";
+                consultaSQL = $"INSERT INTO Convocatoria (Posicion, Confirmacion, Fecha, Duracion, Ubicacion, JugadorId, PartidoId) VALUES ('{convocatoria.Posicion}', {Convert.ToInt32(convocatoria.Confirmacion)}, '{convocatoria.Fecha:yyyy-MM-dd HH:mm:ss}', '{convocatoria.Duracion:hh\\:mm\\:ss}', '{convocatoria.Ubicacion}', {convocatoria.Jugador.Id}, {convocatoria.Partido.Id})";
             }
             return oDatos.Escribir(consultaSQL);
         }
@@ -101,5 +98,33 @@ namespace MPP
             }
             return null;
         }
+
+        public List<Convocatoria> ListarConvocatoriasPorJugador(long jugadorId)
+        {
+            string consulta = $"SELECT Id, Posicion, Confirmacion, Fecha, Duracion, Ubicacion, JugadorId, PartidoId FROM Convocatoria WHERE JugadorId = {jugadorId}";
+            DataSet ds = oDatos.Leer2(consulta);
+            List<Convocatoria> listaConvocatorias = new List<Convocatoria>();
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow fila in ds.Tables[0].Rows)
+                {
+                    Convocatoria convocatoria = new Convocatoria(
+                        Convert.ToInt64(fila["Id"]),
+                        fila["Posicion"].ToString(),
+                        Convert.ToBoolean(fila["Confirmacion"]),
+                        Convert.ToDateTime(fila["Fecha"]),
+                        (TimeSpan)fila["Duracion"],
+                        fila["Ubicacion"].ToString(),
+                        null,
+                        null
+                    );
+
+                    listaConvocatorias.Add(convocatoria);
+                }
+            }
+            return listaConvocatorias;
+        }
+
     }
 }

@@ -19,7 +19,7 @@ namespace MPP
             oDatos = new Acceso();
         }
 
-        public List<Equipo> ListarTodo()
+        public List<Equipo> ListarTodo(bool include= false)
         {
             string consulta = "SELECT Id, Nombre, Descripcion, EntrenadorId FROM Equipo";
             DataSet ds = oDatos.Leer2(consulta);
@@ -29,16 +29,12 @@ namespace MPP
             {
                 foreach (DataRow fila in ds.Tables[0].Rows)
                 {
-                    Entrenador entrenador = new MPPEntrenador().ListarObjeto(Convert.ToInt64(fila["EntrenadorId"]));
-                    List<Jugador> jugadores = new MPPJugador().ListarJugadoresPorEquipo(Convert.ToInt64(fila["Id"]));
                     Equipo equipo = new Equipo(
                         Convert.ToInt64(fila["Id"]),
                         fila["Nombre"].ToString(),
                         fila["Descripcion"].ToString(),
-                        entrenador,
-                        jugadores
+                        include ? new MPPJugador().ListarJugadoresPorEquipo(Convert.ToInt64(fila["Id"])) : null
                     );
-
                     listaEquipos.Add(equipo);
                 }
             }
@@ -47,15 +43,14 @@ namespace MPP
 
         public bool Guardar(Equipo equipo)
         {
-            long entrenadorId = equipo.Entrenador != null ? equipo.Entrenador.Id : 0;
             string consultaSQL;
             if (equipo.Id != 0)
             {
-                consultaSQL = $"UPDATE Equipo SET Nombre = '{equipo.Nombre}', Descripcion = '{equipo.Descripcion}', EntrenadorId = {entrenadorId} WHERE Id = {equipo.Id}";
+                consultaSQL = $"UPDATE Equipo SET Nombre = '{equipo.Nombre}', Descripcion = '{equipo.Descripcion}', WHERE Id = {equipo.Id}";
             }
             else
             {
-                consultaSQL = $"INSERT INTO Equipo (Nombre, Descripcion, EntrenadorId) VALUES ('{equipo.Nombre}', '{equipo.Descripcion}', {entrenadorId})";
+                consultaSQL = $"INSERT INTO Equipo (Nombre, Descripcion, EntrenadorId) VALUES ('{equipo.Nombre}', '{equipo.Descripcion}')";
             }
             return oDatos.Escribir(consultaSQL);
         }
@@ -75,17 +70,26 @@ namespace MPP
             {
                 DataRow fila = ds.Tables[0].Rows[0];
                 long entrenadorId = Convert.ToInt64(fila["EntrenadorId"]);
-                Entrenador entrenador = new MPPEntrenador().ListarObjeto(entrenadorId);
-
                 return new Equipo(
                     Convert.ToInt64(fila["Id"]),
                     fila["Nombre"].ToString(),
                     fila["Descripcion"].ToString(),
-                    entrenador,
                     null // Jugadores se asignarán después
                 );
             }
             return null;
         }
+
+        public bool EliminarJugadordeEquipo(long equipoId, long jugadorId)
+        {
+            string consultaSQL = $"UPDATE Jugador SET EquipoId = NULL WHERE Id = {jugadorId} AND EquipoId = {equipoId}";
+            return oDatos.Escribir(consultaSQL);
+        }
+        public bool AñadirJugadorAEquipo(long equipoId, long jugadorId)
+        {
+            string consultaSQL = $"UPDATE Jugador SET EquipoId = {equipoId} WHERE Id = {jugadorId}";
+            return oDatos.Escribir(consultaSQL);
+        }
+
     }
 }

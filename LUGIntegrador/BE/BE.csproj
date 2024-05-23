@@ -44,7 +44,6 @@
     <Compile Include="Campeonato.cs" />
     <Compile Include="ClaseBase.cs" />
     <Compile Include="Convocatoria.cs" />
-    <Compile Include="Entrenador.cs" />
     <Compile Include="Equipo.cs" />
     <Compile Include="Estadistica.cs" />
     <Compile Include="Jugador.cs" />

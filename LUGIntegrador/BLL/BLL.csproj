@@ -43,8 +43,8 @@
   <ItemGroup>
     <Compile Include="BLLCampeonato.cs" />
     <Compile Include="BLLConvocatoria.cs" />
-    <Compile Include="BLLEntrenador.cs" />
     <Compile Include="BLLEquipo.cs" />
+    <Compile Include="BLLJugador.cs" />
     <Compile Include="BLLPartido.cs" />
     <Compile Include="BLLPrueba.cs" />
     <Compile Include="ClsEncriptar.cs" />

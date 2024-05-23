@@ -20,9 +20,9 @@ namespace BLL
             mppjugador = new MPPJugador();
         }
 
-        public List<Convocatoria> ListarTodo()
+        public List<Convocatoria> ListarTodo(bool include)
         {
-            return oMPPConvocatoria.ListarTodo();
+            return oMPPConvocatoria.ListarTodo(include);
         }
 
         public bool Guardar(Convocatoria convocatoria)

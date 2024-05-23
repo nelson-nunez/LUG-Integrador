@@ -10,7 +10,7 @@ namespace Abstraccion
     {
         bool Guardar(T Objeto);
         bool Baja(long Id);
-        List<T> ListarTodo();
+        List<T> ListarTodo(bool include);
         T ListarObjeto(long Id);
     }
 }

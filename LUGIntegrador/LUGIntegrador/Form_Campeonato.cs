@@ -32,7 +32,7 @@ namespace UI_LUGIntegrador
             bllCampeonato = new BLLCampeonato();
             campeonatoActual = new Campeonato();
             dataGridView1.ConfigurarGrids();
-            dataGridView1.Mostrar(bllCampeonato.ListarTodo());
+            dataGridView1.Mostrar(bllCampeonato.ListarTodo(true));
         }
 
         //Editar
@@ -52,7 +52,7 @@ namespace UI_LUGIntegrador
             }
             finally
             {
-                dataGridView1.Mostrar(bllCampeonato.ListarTodo());
+                dataGridView1.Mostrar(bllCampeonato.ListarTodo(false));
                 label5.Visible = false;
             }
         }
@@ -73,7 +73,7 @@ namespace UI_LUGIntegrador
             }
             finally
             {
-                dataGridView1.Mostrar(bllCampeonato.ListarTodo());
+                dataGridView1.Mostrar(bllCampeonato.ListarTodo(false));
                 label5.Visible = false;
             }
         }
@@ -82,7 +82,8 @@ namespace UI_LUGIntegrador
         //Limpiar
         private void button6_Click(object sender, EventArgs e)
         {
-            CargarDatos(new Campeonato());
+            campeonatoActual= new Campeonato();
+            CargarDatos(campeonatoActual);
         }
 
         //Click en datagrid
@@ -107,7 +108,6 @@ namespace UI_LUGIntegrador
         {
             try
             {
-                VerificarDatos();
                 var response = bllCampeonato.GuardarGenerandoFixture(campeonatoActual);
                 label5.Visible = true;
                 button3.Visible = false;

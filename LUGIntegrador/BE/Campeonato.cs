@@ -34,6 +34,7 @@ namespace BE
 
         public class PartidoView
         {
+            public long Id { get; set; }
             public DateTime Fecha { get; set; }
             public int Duracion { get; set; }
             public int NumeroCancha { get; set; }
@@ -45,6 +46,7 @@ namespace BE
         {
             var partidosParaMostrar = Partidos.Select(p => new PartidoView
             {
+                Id = p.Id,
                 Fecha = p.Fecha,
                 Duracion = p.Duracion,
                 NumeroCancha = p.NumeroCancha,

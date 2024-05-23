@@ -18,9 +18,9 @@ namespace BLL
             oMPPPartido = new MPPPartido();
         }
 
-        public List<Partido> ListarTodo()
+        public List<Partido> ListarTodo(bool include)
         {
-            return oMPPPartido.ListarTodo();
+            return oMPPPartido.ListarTodo(include);
         }
 
         public bool Guardar(Partido Partido)

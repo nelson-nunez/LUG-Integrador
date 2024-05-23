@@ -18,9 +18,9 @@ namespace BLL
             oMPPEquipo = new MPPEquipo();
         }
 
-        public List<Equipo> ListarTodo()
+        public List<Equipo> ListarTodo(bool include)
         {
-            return oMPPEquipo.ListarTodo();
+            return oMPPEquipo.ListarTodo(include);
         }
 
         public bool Guardar(Equipo equipo)
@@ -36,6 +36,16 @@ namespace BLL
         public Equipo ListarObjeto(long Id)
         {
             return oMPPEquipo.ListarObjeto(Id);
+        }
+
+        public bool EliminarJugador(long equipoId, long jugadorId)
+        {
+            return oMPPEquipo.EliminarJugadordeEquipo(equipoId, jugadorId);
+        }
+        
+        public bool AñadirJugador(long equipoId, long jugadorId)
+        {
+            return oMPPEquipo.AñadirJugadorAEquipo(equipoId, jugadorId);
         }
     }
 }

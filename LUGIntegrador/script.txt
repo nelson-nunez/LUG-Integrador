@@ -15,33 +15,32 @@ CREATE TABLE Equipo (
     EntrenadorId INT NULL
 );
 
-CREATE TABLE Persona (
+CREATE TABLE Jugador (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(100),
     Apellido NVARCHAR(100),
     DNI NVARCHAR(50),
     Telefono NVARCHAR(50),
-    FechaNacimiento DATE
-);
-
-CREATE TABLE Jugador (
-    Id INT IDENTITY(1,1) PRIMARY KEY,
+    FechaNacimiento DATE,
     Posicion NVARCHAR(50),
     Edad INT,
     Altura INT,
     Peso INT,
     EquipoId INT,
-    CONSTRAINT FK_Jugador_Equipo FOREIGN KEY (EquipoId) REFERENCES Equipo(Id),
-    CONSTRAINT FK_Jugador_Persona FOREIGN KEY (Id) REFERENCES Persona(Id)
+    CONSTRAINT FK_Jugador_Equipo FOREIGN KEY (EquipoId) REFERENCES Equipo(Id)
 );
 
 CREATE TABLE Entrenador (
     Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Apellido NVARCHAR(100),
+    DNI NVARCHAR(50),
+    Telefono NVARCHAR(50),
+    FechaNacimiento DATE,
     NumeroLicencia NVARCHAR(50),
     Titulo NVARCHAR(100),
     EquipoId INT NULL,
-    CONSTRAINT FK_Entrenador_Equipo FOREIGN KEY (EquipoId) REFERENCES Equipo(Id),
-    CONSTRAINT FK_Entrenador_Persona FOREIGN KEY (Id) REFERENCES Persona(Id)
+    CONSTRAINT FK_Entrenador_Equipo FOREIGN KEY (EquipoId) REFERENCES Equipo(Id)
 );
 
 CREATE TABLE Partido (
@@ -97,19 +96,13 @@ INSERT INTO Equipo (Nombre, Descripcion) VALUES
 ('Equipo A', 'Descripcion A'),
 ('Equipo B', 'Descripcion B');
 
-INSERT INTO Persona (Nombre, Apellido, DNI, Telefono, FechaNacimiento) VALUES
-('Carlos', 'Perez', '12345678', '555-1234', '1980-01-01'),
-('Ana', 'Gomez', '87654321', '555-5678', '1985-02-02'),
-('Juan', 'Lopez', '45678912', '555-8765', '1990-03-03'),
-('Maria', 'Fernandez', '98765432', '555-4321', '1995-04-04');
+INSERT INTO Jugador (Nombre, Apellido, DNI, Telefono, FechaNacimiento, Posicion, Edad, Altura, Peso, EquipoId) VALUES
+('Carlos', 'Perez', '12345678', '555-1234', '1980-01-01', 'Delantero', 30, 180, 75, 1),
+('Ana', 'Gomez', '87654321', '555-5678', '1985-02-02', 'Defensa', 25, 175, 70, 1);
 
-INSERT INTO Jugador (Posicion, Edad, Altura, Peso, EquipoId) VALUES
-('Delantero', 30, 180, 75, 1),
-('Defensa', 25, 175, 70, 1);
-
-INSERT INTO Entrenador (NumeroLicencia, Titulo, EquipoId) VALUES
-('LIC123', 'Master Coach', 1),
-('LIC456', 'Pro Coach', 2);
+INSERT INTO Entrenador (Nombre, Apellido, DNI, Telefono, FechaNacimiento, NumeroLicencia, Titulo, EquipoId) VALUES
+('Juan', 'Lopez', '45678912', '555-8765', '1990-03-03', 'LIC123', 'Master Coach', 1),
+('Maria', 'Fernandez', '98765432', '555-4321', '1995-04-04', 'LIC456', 'Pro Coach', 2);
 
 UPDATE Equipo SET EntrenadorId = 1 WHERE Id = 1;
 UPDATE Equipo SET EntrenadorId = 2 WHERE Id = 2;
