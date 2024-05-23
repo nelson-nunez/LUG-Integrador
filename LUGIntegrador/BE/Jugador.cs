@@ -66,8 +66,9 @@ namespace BE
         public int Edad { get; set; }
         public int Altura { get; set; }
         public int Peso { get; set; }
-        public JugadorView(string nombre, string apellido, string dni,string posicion, int edad, int altura, int peso)
+        public JugadorView(long id, string nombre, string apellido, string dni,string posicion, int edad, int altura, int peso)
         {
+            Id = id;
             Nombre= nombre;
             Apellido= apellido;
             DNI=dni;

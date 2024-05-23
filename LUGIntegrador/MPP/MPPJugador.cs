@@ -110,6 +110,7 @@ namespace MPP
                 foreach (DataRow fila in ds.Tables[0].Rows)
                 {
                     var jugador = new JugadorView(
+                        Convert.ToInt64(fila["Id"]),
                         fila["Nombre"].ToString(),
                         fila["Apellido"].ToString(),
                         fila["DNI"].ToString(),
@@ -164,6 +165,7 @@ namespace MPP
                 foreach (DataRow fila in ds.Tables[0].Rows)
                 {
                     var jugador = new JugadorView(
+                        Convert.ToInt64(fila["Id"]),
                         fila["Nombre"].ToString(),
                         fila["Apellido"].ToString(),
                         fila["DNI"].ToString(),

@@ -46,6 +46,7 @@ namespace LUGIntegrador
 
             dataGridView1.ConfigurarGrids();
             dataGridView2.ConfigurarGrids();
+
             dataGridView1.Mostrar(bllCampeonato.ListarTodoConFixture());
             comboBox1.DataSource = bLLEquipo.ListarTodo(false);
             comboBox1.DisplayMember = "Nombre";
