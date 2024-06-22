@@ -16,3 +16,5 @@ LUGIntegrador/Nueva carpeta/BusinessLogicLayer/obj/
 LUGIntegrador/LUGIntegrador/bin/
 LUGIntegrador/MPP/bin/
 LUGIntegrador/MPP/obj/
+LUGIntegrador/Seguridad/obj/
+*.json

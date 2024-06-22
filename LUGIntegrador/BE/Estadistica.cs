@@ -9,15 +9,9 @@ namespace BE
     public class Estadistica: ClaseBase
     {
         public int PasesConectados { get; set; }
-        public int PasesFallados { get; set; }
-        public int Asistencias { get; set; }
         public int KmRecorrido { get; set; }
         public bool TarjetaRoja { get; set; }
         public bool TarjetaAmarilla { get; set; }
-        public int DuelosGanados { get; set; }
-        public int DuelosPerdidos { get; set; }
-        public int Bloqueos { get; set; }
-        public int Disparos { get; set; }
         public int Goles { get; set; }
         public int Recuperaciones { get; set; }
 
@@ -25,19 +19,13 @@ namespace BE
         public virtual Partido Partido { get; set; }
 
         public Estadistica() { }
-        public Estadistica(long idEstadistica, int pasesConectados, int pasesFallados, int asistencias, int kmRecorrido, bool tarjetaRoja, bool tarjetaAmarilla, int duelosGanados, int duelosPerdidos, int bloqueos, int disparos, int goles, int recuperaciones, Jugador jugador, Partido partido)
+        public Estadistica(long idEstadistica, int pasesConectados, int kmRecorrido, bool tarjetaRoja, bool tarjetaAmarilla, int goles, int recuperaciones, Jugador jugador, Partido partido)
         {
             Id = idEstadistica;
             PasesConectados = pasesConectados;
-            PasesFallados = pasesFallados;
-            Asistencias = asistencias;
             KmRecorrido = kmRecorrido;
             TarjetaRoja = tarjetaRoja;
             TarjetaAmarilla = tarjetaAmarilla;
-            DuelosGanados = duelosGanados;
-            DuelosPerdidos = duelosPerdidos;
-            Bloqueos = bloqueos;
-            Disparos = disparos;
             Goles = goles;
             Recuperaciones = recuperaciones;
             Jugador = jugador ?? new Jugador();

@@ -16,13 +16,14 @@ namespace BE
         public string DNI { get; set; }
         public string Telefono { get; set; }
         public DateTime FechaNacimiento { get; set; }
-
+        public string Email { get; set; }
+        public string Password { get; set; }
 
         #endregion
 
         #region Metodos
 
-        public abstract object RetornarVista();
+        public abstract object RetornarMenu();
        
         #endregion
 

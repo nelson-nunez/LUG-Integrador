@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		script.txt = script.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seguridad", "Seguridad\Seguridad.csproj", "{4159C493-EF40-44AC-B8AD-79CAABD44CA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{D2E049CD-3B48-471B-9052-7722DC577E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2E049CD-3B48-471B-9052-7722DC577E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2E049CD-3B48-471B-9052-7722DC577E68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4159C493-EF40-44AC-B8AD-79CAABD44CA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4159C493-EF40-44AC-B8AD-79CAABD44CA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4159C493-EF40-44AC-B8AD-79CAABD44CA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4159C493-EF40-44AC-B8AD-79CAABD44CA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

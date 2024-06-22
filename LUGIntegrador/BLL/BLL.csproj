@@ -46,8 +46,8 @@
     <Compile Include="BLLEquipo.cs" />
     <Compile Include="BLLJugador.cs" />
     <Compile Include="BLLPartido.cs" />
+    <Compile Include="BLLPersona.cs" />
     <Compile Include="BLLPrueba.cs" />
-    <Compile Include="ClsEncriptar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

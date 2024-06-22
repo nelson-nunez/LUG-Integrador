@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace UI_LUGIntegrador.Extensiones
@@ -36,6 +37,23 @@ namespace UI_LUGIntegrador.Extensiones
         public static bool IsNOTNullOrEmpty<T>(this ICollection<T> enumerable)
         {
             return enumerable != null && enumerable.Any();
+        }
+
+        public static bool IsValidEmail(this string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                return false;
+
+            try
+            {
+                string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+                Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                return regex.IsMatch(email);
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
         }
     }
 }

@@ -27,26 +27,26 @@ namespace MPP
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                foreach (DataRow fila in ds.Tables[0].Rows)
-                {
-                    Jugador jugador = new Jugador(
-                        Convert.ToInt64(fila["Id"]),
-                        fila["Nombre"].ToString(),
-                        fila["Apellido"].ToString(),
-                        fila["DNI"].ToString(),
-                        fila["Telefono"].ToString(),
-                        Convert.ToDateTime(fila["FechaNacimiento"]),
-                        fila["Posicion"].ToString(),
-                        Convert.ToInt32(fila["Edad"]),
-                        Convert.ToInt32(fila["Altura"]),
-                        Convert.ToInt32(fila["Peso"]),
-                        include ? new MPPEquipo().ListarObjeto(Convert.ToInt64(fila["EquipoId"])) : null,
-                        include ? new MPPPartido().ListarPartidosPorJugador(Convert.ToInt64(fila["Id"])) : null,
-                        include ? new MPPConvocatoria().ListarConvocatoriasPorJugador(Convert.ToInt64(fila["Id"])) : null
-                    );
+                //foreach (DataRow fila in ds.Tables[0].Rows)
+                //{
+                //    Jugador jugador = new Jugador(
+                //        Convert.ToInt64(fila["Id"]),
+                //        fila["Nombre"].ToString(),
+                //        fila["Apellido"].ToString(),
+                //        fila["DNI"].ToString(),
+                //        fila["Telefono"].ToString(),
+                //        Convert.ToDateTime(fila["FechaNacimiento"]),
+                //        fila["Posicion"].ToString(),
+                //        Convert.ToInt32(fila["Edad"]),
+                //        Convert.ToInt32(fila["Altura"]),
+                //        Convert.ToInt32(fila["Peso"]),
+                //        include ? new MPPEquipo().ListarObjeto(Convert.ToInt64(fila["EquipoId"])) : null,
+                //        include ? new MPPPartido().ListarPartidosPorJugador(Convert.ToInt64(fila["Id"])) : null,
+                //        include ? new MPPConvocatoria().ListarConvocatoriasPorJugador(Convert.ToInt64(fila["Id"])) : null
+                //    );
 
-                    listaJugadores.Add(jugador);
-                }
+                //    listaJugadores.Add(jugador);
+                //}
             }
             return listaJugadores;
         }
@@ -77,50 +77,50 @@ namespace MPP
             string consulta = $"SELECT Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, Posicion, Edad, Altura, Peso FROM Jugador WHERE Id = {Id}";
             DataSet ds = oDatos.Leer2(consulta);
 
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                DataRow fila = ds.Tables[0].Rows[0];
-                return new Jugador(
-                    Convert.ToInt64(fila["Id"]),
-                    fila["Nombre"].ToString(),
-                    fila["Apellido"].ToString(),
-                    fila["DNI"].ToString(),
-                    fila["Telefono"].ToString(),
-                    Convert.ToDateTime(fila["FechaNacimiento"]),
-                    fila["Posicion"].ToString(),
-                    Convert.ToInt32(fila["Edad"]),
-                    Convert.ToInt32(fila["Altura"]),
-                    Convert.ToInt32(fila["Peso"]),
-                    null, // Equipo se asignará después
-                    null, // Partidos se asignarán después
-                    null  // Convocatorias se asignarán después
-                );
-            }
+            //if (ds.Tables[0].Rows.Count > 0)
+            //{
+            //    DataRow fila = ds.Tables[0].Rows[0];
+            //    return new Jugador(
+            //        Convert.ToInt64(fila["Id"]),
+            //        fila["Nombre"].ToString(),
+            //        fila["Apellido"].ToString(),
+            //        fila["DNI"].ToString(),
+            //        fila["Telefono"].ToString(),
+            //        Convert.ToDateTime(fila["FechaNacimiento"]),
+            //        fila["Posicion"].ToString(),
+            //        Convert.ToInt32(fila["Edad"]),
+            //        Convert.ToInt32(fila["Altura"]),
+            //        Convert.ToInt32(fila["Peso"]),
+            //        null, // Equipo se asignará después
+            //        null, // Partidos se asignarán después
+            //        null  // Convocatorias se asignarán después
+            //    );
+            //}
             return null;
         }
 
-        public List<JugadorView> ListarJugadoresViewPorEquipo(long equipoId)
+        public List<Jugador> ListarJugadoresViewPorEquipo(long equipoId)
         {
             string consulta = $"SELECT Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, Posicion, Edad, Altura, Peso FROM Jugador WHERE EquipoId = {equipoId}";
             DataSet ds = oDatos.Leer2(consulta);
-            List<JugadorView> listaJugadores = new List<JugadorView>();
+            List<Jugador> listaJugadores = new List<Jugador>();
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                foreach (DataRow fila in ds.Tables[0].Rows)
-                {
-                    var jugador = new JugadorView(
-                        Convert.ToInt64(fila["Id"]),
-                        fila["Nombre"].ToString(),
-                        fila["Apellido"].ToString(),
-                        fila["DNI"].ToString(),
-                        fila["Posicion"].ToString(),
-                        Convert.ToInt32(fila["Edad"]),
-                        Convert.ToInt32(fila["Altura"]),
-                        Convert.ToInt32(fila["Peso"])
-                    );
-                    listaJugadores.Add(jugador);
-                }
+                //foreach (DataRow fila in ds.Tables[0].Rows)
+                //{
+                //    var jugador = new Jugador(
+                //        Convert.ToInt64(fila["Id"]),
+                //        fila["Nombre"].ToString(),
+                //        fila["Apellido"].ToString(),
+                //        fila["DNI"].ToString(),
+                //        fila["Posicion"].ToString(),
+                //        Convert.ToInt32(fila["Edad"]),
+                //        Convert.ToInt32(fila["Altura"]),
+                //        Convert.ToInt32(fila["Peso"])
+                //    );
+                //    listaJugadores.Add(jugador);
+                //}
             }
             return listaJugadores;
         }
@@ -132,52 +132,52 @@ namespace MPP
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                foreach (DataRow fila in ds.Tables[0].Rows)
-                {
-                    Jugador jugador = new Jugador(
-                        Convert.ToInt64(fila["Id"]),
-                        fila["Nombre"].ToString(),
-                        fila["Apellido"].ToString(),
-                        fila["DNI"].ToString(),
-                        fila["Telefono"].ToString(),
-                        Convert.ToDateTime(fila["FechaNacimiento"]),
-                        fila["Posicion"].ToString(),
-                        Convert.ToInt32(fila["Edad"]),
-                        Convert.ToInt32(fila["Altura"]),
-                        Convert.ToInt32(fila["Peso"]),
-                        new MPPEquipo().ListarObjeto(equipoId),
-                        null, // Partidos no se incluyen
-                        null  // Convocatorias no se incluyen
-                    );
-                    listaJugadores.Add(jugador);
-                }
+                //foreach (DataRow fila in ds.Tables[0].Rows)
+                //{
+                //    Jugador jugador = new Jugador(
+                //        Convert.ToInt64(fila["Id"]),
+                //        fila["Nombre"].ToString(),
+                //        fila["Apellido"].ToString(),
+                //        fila["DNI"].ToString(),
+                //        fila["Telefono"].ToString(),
+                //        Convert.ToDateTime(fila["FechaNacimiento"]),
+                //        fila["Posicion"].ToString(),
+                //        Convert.ToInt32(fila["Edad"]),
+                //        Convert.ToInt32(fila["Altura"]),
+                //        Convert.ToInt32(fila["Peso"]),
+                //        new MPPEquipo().ListarObjeto(equipoId),
+                //        null, // Partidos no se incluyen
+                //        null  // Convocatorias no se incluyen
+                //    );
+                //    listaJugadores.Add(jugador);
+                //}
             }
             return listaJugadores;
         }
-        public List<JugadorView> ListarJugadoresDisponibles()
-        {
-            string consulta = "SELECT Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, Posicion, Edad, Altura, Peso FROM Jugador WHERE EquipoId IS NULL";
-            DataSet ds = oDatos.Leer2(consulta);
-            List<JugadorView> listaJugadores = new List<JugadorView>();
+        //public List<JugadorView> ListarJugadoresDisponibles()
+        //{
+        //    string consulta = "SELECT Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, Posicion, Edad, Altura, Peso FROM Jugador WHERE EquipoId IS NULL";
+        //    DataSet ds = oDatos.Leer2(consulta);
+        //    List<JugadorView> listaJugadores = new List<JugadorView>();
 
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow fila in ds.Tables[0].Rows)
-                {
-                    var jugador = new JugadorView(
-                        Convert.ToInt64(fila["Id"]),
-                        fila["Nombre"].ToString(),
-                        fila["Apellido"].ToString(),
-                        fila["DNI"].ToString(),
-                        fila["Posicion"].ToString(),
-                        Convert.ToInt32(fila["Edad"]),
-                        Convert.ToInt32(fila["Altura"]),
-                        Convert.ToInt32(fila["Peso"])
-                    );
-                    listaJugadores.Add(jugador);
-                }
-            }
-            return listaJugadores;
-        }
+        //    if (ds.Tables[0].Rows.Count > 0)
+        //    {
+        //        foreach (DataRow fila in ds.Tables[0].Rows)
+        //        {
+        //            var jugador = new JugadorView(
+        //                Convert.ToInt64(fila["Id"]),
+        //                fila["Nombre"].ToString(),
+        //                fila["Apellido"].ToString(),
+        //                fila["DNI"].ToString(),
+        //                fila["Posicion"].ToString(),
+        //                Convert.ToInt32(fila["Edad"]),
+        //                Convert.ToInt32(fila["Altura"]),
+        //                Convert.ToInt32(fila["Peso"])
+        //            );
+        //            listaJugadores.Add(jugador);
+        //        }
+        //    }
+        //    return listaJugadores;
+        ////}
     }
 }

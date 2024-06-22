@@ -91,7 +91,7 @@ namespace LUGIntegrador
             {
                 equipoActual = dataGridView1.VerificarYRetornarSeleccion<Equipo>();
                 CargarDatos(equipoActual);
-                dataGridView2.Mostrar(bLLJugador.ListarJugadoresPorEquipo(equipoActual.Id));
+                //dataGridView2.Mostrar(bLLJugador.ListarJugadoresPorEquipo(equipoActual.Id));
             }
             catch (Exception ex)
             {
@@ -99,32 +99,32 @@ namespace LUGIntegrador
             }
             finally
             {
-                dataGridView3.Mostrar(bLLJugador.ListarJugadoresDisponibles());
+                //dataGridView3.Mostrar(bLLJugador.ListarJugadoresDisponibles());
             }
         }
 
         //Elimnar jugadores
         private void button3_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var jugadorborrar = dataGridView2.VerificarYRetornarSeleccion<JugadorView>();
-                if (jugadorborrar != null)
-                {
-                    var response = bLLEquipo.EliminarJugador(equipoActual.Id, jugadorborrar.Id);
-                    if (response)
-                        MessageBox.Show("Se eliminó de la plantilla con éxito");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                dataGridView2.Mostrar(bLLJugador.ListarJugadoresPorEquipo(equipoActual.Id));
-                dataGridView3.Mostrar(bLLJugador.ListarJugadoresDisponibles());
-            }
+            //try
+            //{
+            //    //var jugadorborrar = dataGridView2.VerificarYRetornarSeleccion<JugadorView>();
+            //    if (jugadorborrar != null)
+            //    {
+            //        var response = bLLEquipo.EliminarJugador(equipoActual.Id, jugadorborrar.Id);
+            //        if (response)
+            //            MessageBox.Show("Se eliminó de la plantilla con éxito");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+            //finally
+            //{
+            //    dataGridView2.Mostrar(bLLJugador.ListarJugadoresPorEquipo(equipoActual.Id));
+            //    dataGridView3.Mostrar(bLLJugador.ListarJugadoresDisponibles());
+            //}
         }
    
         //Asignar jugador
@@ -132,13 +132,13 @@ namespace LUGIntegrador
         {
             try
             {
-                var jugadorborrar = dataGridView3.VerificarYRetornarSeleccion<JugadorView>();
-                if (jugadorborrar != null)
-                {
-                    var response = bLLEquipo.AñadirJugador(equipoActual.Id, jugadorborrar.Id);
-                    if (response)
-                        MessageBox.Show("Se asignó al equipo con éxito");
-                }
+                //var jugadorborrar = dataGridView3.VerificarYRetornarSeleccion<JugadorView>();
+                //if (jugadorborrar != null)
+                //{
+                //    var response = bLLEquipo.AñadirJugador(equipoActual.Id, jugadorborrar.Id);
+                //    if (response)
+                //        MessageBox.Show("Se asignó al equipo con éxito");
+                //}
             }
             catch (Exception ex)
             {
@@ -146,8 +146,8 @@ namespace LUGIntegrador
             }
             finally
             {
-                dataGridView2.Mostrar(bLLJugador.ListarJugadoresPorEquipo(equipoActual.Id));
-                dataGridView3.Mostrar(bLLJugador.ListarJugadoresDisponibles());
+                //dataGridView2.Mostrar(bLLJugador.ListarJugadoresPorEquipo(equipoActual.Id));
+                //dataGridView3.Mostrar(bLLJugador.ListarJugadoresDisponibles());
             }
         }
 

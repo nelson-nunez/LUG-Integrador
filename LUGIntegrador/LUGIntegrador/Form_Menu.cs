@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BE;
+using BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,14 +19,32 @@ namespace LUGIntegrador
         private Form_Equipo formequipo;
         private Form_Partidos formpartidos ;
         private Form_Persona formpersonas;
+        private UC_Login uc_login;
 
         public Form_Menu()
         {
             InitializeComponent();
             // Hacer que esta ventana sea un contenedor MDI
             this.IsMdiContainer = true;
-            //Abro por defecto el mp3
-            //AbrirFormGeneral(ref );
+            
+            // Ocultar el menú hasta que se inicie sesión correctamente
+            menuStrip1.Visible = false;
+           
+            // Crear y centrar el UC_Login
+            uc_login = new UC_Login();
+            uc_login.Anchor = AnchorStyles.None;
+            uc_login.Left = (this.ClientSize.Width - uc_login.Width) / 2;
+            uc_login.Top = (this.ClientSize.Height - uc_login.Height) / 2;
+            this.Controls.Add(uc_login);
+            uc_login.LoginSuccess += Uc_Login_LoginSuccess;
+        }
+
+        private void Uc_Login_LoginSuccess(object sender, PersonaEventArgs e)
+        {
+            Persona persona = e.Persona;
+            MessageBox.Show($"Bienvenido, {persona.Nombre} {persona.Apellido}!");
+            menuStrip1.Visible = true;  
+            uc_login.Visible = false;  
         }
 
         private void AbrirFormCampeonato(object sender, EventArgs e)
@@ -43,7 +63,6 @@ namespace LUGIntegrador
         {
             AbrirFormGeneral(ref formpersonas);
         }
-
         private void AbrirFormGeneral<T>(ref T formulario) where T : Form, new()
         {
             if (formulario == null || formulario.IsDisposed)
@@ -63,13 +82,15 @@ namespace LUGIntegrador
             formulario.Show();
             formulario.BringToFront();
         }
-
         private void CerrarTodosLosFormulariosHijos(object sender, EventArgs e)
         {
             foreach (Form childForm in this.MdiChildren)
             {
                 childForm.Close();
             }
+
+            menuStrip1.Visible = false; 
+            uc_login.Visible = true;
         }
     }
 }

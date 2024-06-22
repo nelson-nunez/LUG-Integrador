@@ -9,7 +9,6 @@ namespace BE
     public class Campeonato: ClaseBase
     {
         #region Propiedades
-
         public string Nombre { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
@@ -29,32 +28,6 @@ namespace BE
             CantidadPartidos = cantidadPartidos;
             CantidadJugadores = cantidadJugadores;
             Partidos = partidos ?? new List<Partido>();
-        }
-
-
-        public class PartidoView
-        {
-            public long Id { get; set; }
-            public DateTime Fecha { get; set; }
-            public int Duracion { get; set; }
-            public int NumeroCancha { get; set; }
-            public string Ubicacion { get; set; }
-            public string Categoria { get; set; }
-        }
-
-        public virtual List<PartidoView> RetornarVista()
-        {
-            var partidosParaMostrar = Partidos.Select(p => new PartidoView
-            {
-                Id = p.Id,
-                Fecha = p.Fecha,
-                Duracion = p.Duracion,
-                NumeroCancha = p.NumeroCancha,
-                Ubicacion = p.Ubicacion,
-                Categoria = p.Categoria
-            }).ToList();
-
-            return partidosParaMostrar;
         }
     }
 }

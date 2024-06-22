@@ -38,14 +38,14 @@ namespace BLL
             return oMPPJugador.ListarObjeto(Id);
         }
 
-        public List<JugadorView> ListarJugadoresDisponibles()
-        {
-            return oMPPJugador.ListarJugadoresDisponibles();
-        }
+        //public List<JugadorView> ListarJugadoresDisponibles()
+        //{
+        //    return oMPPJugador.ListarJugadoresDisponibles();
+        //}
 
-        public List<JugadorView> ListarJugadoresPorEquipo(long equipoId)
-        {
-            return oMPPJugador.ListarJugadoresViewPorEquipo(equipoId);
-        }
+        //public List<JugadorView> ListarJugadoresPorEquipo(long equipoId)
+        //{
+        //    return oMPPJugador.ListarJugadoresViewPorEquipo(equipoId);
+        //}
     }
 }

@@ -106,8 +106,8 @@
             // 
             this.cerrarTodoToolStripMenuItem.Image = global::LUGIntegrador.Properties.Resources.cerrar;
             this.cerrarTodoToolStripMenuItem.Name = "cerrarTodoToolStripMenuItem";
-            this.cerrarTodoToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
-            this.cerrarTodoToolStripMenuItem.Text = "Cerrar Todo";
+            this.cerrarTodoToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.cerrarTodoToolStripMenuItem.Text = "Salir";
             this.cerrarTodoToolStripMenuItem.Click += new System.EventHandler(this.CerrarTodosLosFormulariosHijos);
             // 
             // Form_Menu
