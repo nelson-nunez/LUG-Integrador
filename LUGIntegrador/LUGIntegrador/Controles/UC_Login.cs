@@ -20,7 +20,7 @@ namespace LUGIntegrador
     {
         BLLPersona bllPersona;
         BLLPrueba bllPrueba;
-        Persona loggedperson;
+        PersonaView loggedperson;
         public event EventHandler<PersonaEventArgs> LoginSuccess;
         public UC_Login()
         {
@@ -60,7 +60,7 @@ namespace LUGIntegrador
             }
         }
 
-        private void OnLoginSuccess(Persona persona)
+        private void OnLoginSuccess(PersonaView persona)
         {
             LoginSuccess?.Invoke(this, new PersonaEventArgs(persona));
         }
@@ -82,9 +82,9 @@ namespace LUGIntegrador
 
     public class PersonaEventArgs : EventArgs
     {
-        public Persona Persona { get; }
+        public PersonaView Persona { get; }
 
-        public PersonaEventArgs(Persona persona)
+        public PersonaEventArgs(PersonaView persona)
         {
             Persona = persona;
         }

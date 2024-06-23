@@ -28,4 +28,23 @@ namespace BE
         #endregion
 
     }
+
+    public class PersonaView
+    {
+        public long Id { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string DNI { get; set; }
+        public string Telefono { get; set; }
+        public string Tipo { get; set; }
+        public PersonaView(long id, string nombre, string apellido, string dni, string telefono, string tipo)
+        {
+            Id = id;
+            Nombre = nombre;
+            Apellido = apellido;
+            DNI = dni;
+            Telefono = telefono;
+            Tipo = tipo;
+        }
+    }
 }

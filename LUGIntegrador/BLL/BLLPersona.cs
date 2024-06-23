@@ -17,9 +17,19 @@ namespace BLL
             oMPPPersona = new MPPPersona();
         }
 
-        public Persona Login(string email, string password)
+        public PersonaView Login(string email, string password)
         {
             return oMPPPersona.Login(email, password);
         }
+
+        public List<PersonaView> ListarTodo()
+        {
+            return oMPPPersona.ListarTodo();
+        }
+
+        //public bool Guardar(Jugador jugador)
+        //{
+        //    return oMPPPersona.Guardar(jugador);
+        //}
     }
 }

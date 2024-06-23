@@ -19,61 +19,80 @@ namespace MPP
             oDatos = new Acceso();
         }
 
-        public Persona Login(string email, string password)
+        public PersonaView Login(string email, string password)
         {
             string consulta =
-                $"SELECT Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, Email, Password, 'Jugador' AS Tipo " +
-                $"FROM Jugador WHERE Email ='{email}' AND Password ='{password}' " +
-                $"UNION " +
-                $"SELECT Id, Nombre, Apellido, DNI, Telefono, FechaNacimiento, Email, Password, 'Tecnico' AS Tipo " +
-                $"FROM Tecnico WHERE Email ='{email}' AND Password ='{password}'";
+                $"SELECT p.Id, p.Nombre, p.Apellido, p.DNI, p.Telefono, " +
+                $"CASE " +
+                $"    WHEN j.Id IS NOT NULL THEN 'Jugador' " +
+                $"    WHEN t.Id IS NOT NULL THEN 'Tecnico' " +
+                $"END AS Tipo " +
+                $"FROM Persona p " +
+                $"LEFT JOIN Jugador j ON p.Id = j.Id " +
+                $"LEFT JOIN Tecnico t ON p.Id = t.Id " +
+                $"WHERE p.Email = '{email}' AND p.Password = '{password}'";
 
             DataSet ds = oDatos.Leer2(consulta);
 
             if (ds.Tables[0].Rows.Count > 0)
             {
                 DataRow fila = ds.Tables[0].Rows[0];
-                string tipo = fila["Tipo"].ToString();
-                if (tipo == "Jugador")
-                {
-                    return new Jugador(
-                        Convert.ToInt64(fila["Id"]),
-                        fila["Nombre"].ToString(),
-                        fila["Apellido"].ToString(),
-                        fila["DNI"].ToString(),
-                        fila["Telefono"].ToString(),
-                        Convert.ToDateTime(fila["FechaNacimiento"]),
-                        fila["Email"].ToString(),
-                        fila["Password"].ToString(),
-                        null, 
-                        0, 
-                        0, 
-                        0, 
-                        null, 
-                        null, 
-                        null  
-                    );
-                }
-                else if (tipo == "Tecnico")
-                {
-                    return new Tecnico(
-                        Convert.ToInt64(fila["Id"]),
-                        fila["Nombre"].ToString(),
-                        fila["Apellido"].ToString(),
-                        fila["DNI"].ToString(),
-                        fila["Telefono"].ToString(),
-                        Convert.ToDateTime(fila["FechaNacimiento"]),
-                        fila["Email"].ToString(),
-                        fila["Password"].ToString(),
-                        null,
-                        0, 
-                        null  
-                    );
-                }
+                return new PersonaView(
+                    Convert.ToInt64(fila["Id"]),
+                    fila["Nombre"].ToString(),
+                    fila["Apellido"].ToString(),
+                    fila["DNI"].ToString(),
+                    fila["Telefono"].ToString(),
+                    fila["Tipo"].ToString()
+                );
             }
 
             return null;
         }
-    }
 
+        public bool GuardarUsuario(long Id, string email, string password)
+        {
+            string selectQuery = $"SELECT Id FROM Persona WHERE Id = {Id}";
+            DataSet ds = oDatos.Leer2(selectQuery);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                string updateQuery = $"UPDATE Persona SET Email = '{email}', Password = '{password}' WHERE Id = {Id}";
+                return oDatos.Escribir(updateQuery);
+            }
+            else
+            {
+                throw new Exception("No existe la persona con el Id especificado.");
+            }
+        }
+
+        public List<PersonaView> ListarTodo()
+        {
+            var personas = new List<PersonaView>();
+
+            string storedProcedure = "ListarPersonas";
+            DataTable tabla = oDatos.Leer(storedProcedure, null);
+
+            if (tabla.Rows.Count > 0)
+            {
+                foreach (DataRow row in tabla.Rows)
+                {
+                    var persona = new PersonaView
+                    (
+                        Convert.ToInt64(row["Id"]),
+                        row["Nombre"].ToString(),
+                        row["Apellido"].ToString(),
+                        row["DNI"].ToString(),
+                        row["Telefono"].ToString(),
+                        row["Tipo"].ToString()
+                    );
+                    personas.Add(persona);
+                }
+                return personas;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
 }

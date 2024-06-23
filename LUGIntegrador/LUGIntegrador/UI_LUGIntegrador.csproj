@@ -47,6 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controles\UC_Jugador.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\UC_Jugador.Designer.cs">
+      <DependentUpon>UC_Jugador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\UC_Tecnico.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\UC_Tecnico.Designer.cs">
+      <DependentUpon>UC_Tecnico.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Campeonato.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +97,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controles\UC_Jugador.resx">
+      <DependentUpon>UC_Jugador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\UC_Tecnico.resx">
+      <DependentUpon>UC_Tecnico.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Campeonato.resx">
       <DependentUpon>Form_Campeonato.cs</DependentUpon>
     </EmbeddedResource>

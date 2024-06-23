@@ -41,7 +41,7 @@ namespace LUGIntegrador
 
         private void Uc_Login_LoginSuccess(object sender, PersonaEventArgs e)
         {
-            Persona persona = e.Persona;
+            PersonaView persona = e.Persona;
             MessageBox.Show($"Bienvenido, {persona.Nombre} {persona.Apellido}!");
             menuStrip1.Visible = true;  
             uc_login.Visible = false;  
