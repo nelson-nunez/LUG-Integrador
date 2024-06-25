@@ -100,7 +100,6 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(78, 20);
             this.toolStripMenuItem1.Text = "Partidos";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.AbrirFormPartido);
             // 
             // cerrarTodoToolStripMenuItem
             // 

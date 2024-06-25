@@ -22,6 +22,7 @@ namespace LUGIntegrador
         BLLPrueba bllPrueba;
         Persona loggedperson;
         public event EventHandler<PersonaEventArgs> LoginSuccess;
+ 
         public UC_Login()
         {
             InitializeComponent();
@@ -41,7 +42,6 @@ namespace LUGIntegrador
                 loggedperson = bllPersona.Login(email.Text, password.Text);
                 if (loggedperson != null)
                 {
-                    MessageBox.Show("Ingresó con éxito");
                     OnLoginSuccess(loggedperson);
                 }
             }

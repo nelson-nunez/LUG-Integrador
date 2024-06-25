@@ -1,7 +1,4 @@
-
-
-
-CREATE PROCEDURE ActualizarCampeonato
+﻿CREATE PROCEDURE ActualizarCampeonato
     @Id INT,
     @Nombre NVARCHAR(100),
     @FechaInicio DATE,

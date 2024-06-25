@@ -4,6 +4,7 @@ using DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,65 +20,106 @@ namespace MPP
             oDatos = new Acceso();
         }
 
-        public List<Equipo> ListarTodo(bool include= false)
+        public List<Equipo> ListarTodo(bool include)
         {
-            string consulta = "SELECT Id, Nombre, Descripcion, EntrenadorId FROM Equipo";
-            DataSet ds = oDatos.Leer2(consulta);
+            string storedProcedure = "sp_ListarEquipos";
             List<Equipo> listaEquipos = new List<Equipo>();
-
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow fila in ds.Tables[0].Rows)
+                DataTable tabla = oDatos.Leer(storedProcedure, null);
+                if (tabla.Rows.Count > 0)
                 {
-                    Equipo equipo = new Equipo(
-                        Convert.ToInt64(fila["Id"]),
-                        fila["Nombre"].ToString(),
-                        fila["Descripcion"].ToString(),
-                        include ? new MPPJugador().ListarJugadoresPorEquipo(Convert.ToInt64(fila["Id"])) : null
-                    );
-                    listaEquipos.Add(equipo);
+                    foreach (DataRow fila in tabla.Rows)
+                    {
+                        Equipo equipo = new Equipo(
+                            Convert.ToInt64(fila["Id"]),
+                            fila["Nombre"].ToString(),
+                            fila["Descripcion"].ToString(),
+                            include ? new MPPJugador().ListarJugadoresPorEquipo(Convert.ToInt64(fila["Id"])) : null
+                        );
+
+                        listaEquipos.Add(equipo);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             return listaEquipos;
         }
 
         public bool Guardar(Equipo equipo)
         {
-            string consultaSQL;
-            if (equipo.Id != 0)
+            string storedProcedure = "sp_GuardarEquipo";
+            bool resultado = false;
+            try
             {
-                consultaSQL = $"UPDATE Equipo SET Nombre = '{equipo.Nombre}', Descripcion = '{equipo.Descripcion}', WHERE Id = {equipo.Id}";
+                List<SqlParameter> parametros = new List<SqlParameter>
+                {
+                    new SqlParameter("@Id", equipo.Id),
+                    new SqlParameter("@Nombre", equipo.Nombre),
+                    new SqlParameter("@Descripcion", equipo.Descripcion),
+                };
+
+                resultado = oDatos.Escribir(storedProcedure, parametros);
             }
-            else
+            catch (Exception ex)
             {
-                consultaSQL = $"INSERT INTO Equipo (Nombre, Descripcion, EntrenadorId) VALUES ('{equipo.Nombre}', '{equipo.Descripcion}')";
+                throw ex;
             }
-            return oDatos.Escribir(consultaSQL);
+
+            return resultado;
         }
 
         public bool Baja(long Id)
         {
-            string consultaSQL = $"DELETE FROM Equipo WHERE Id = {Id}";
-            return oDatos.Escribir(consultaSQL);
+            string storedProcedure = "sp_BajaEquipo";
+            bool resultado = false;
+            try
+            {
+                List<SqlParameter> parametros = new List<SqlParameter>
+                {
+                    new SqlParameter("@Id", Id)
+                };
+                resultado = oDatos.Escribir(storedProcedure, parametros);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return resultado;
         }
 
         public Equipo ListarObjeto(long Id)
         {
-            string consulta = $"SELECT Id, Nombre, Descripcion, EntrenadorId FROM Equipo WHERE Id = {Id}";
-            DataSet ds = oDatos.Leer2(consulta);
-
-            if (ds.Tables[0].Rows.Count > 0)
+            string storedProcedure = "sp_ListarEquipoPorId";
+            Equipo equipo = null;
+            try
             {
-                DataRow fila = ds.Tables[0].Rows[0];
-                long entrenadorId = Convert.ToInt64(fila["EntrenadorId"]);
-                return new Equipo(
-                    Convert.ToInt64(fila["Id"]),
-                    fila["Nombre"].ToString(),
-                    fila["Descripcion"].ToString(),
-                    null // Jugadores se asignarán después
-                );
+                List<SqlParameter> parametros = new List<SqlParameter>
+                {
+                    new SqlParameter("@Id", Id)
+                };
+                DataTable tabla = oDatos.Leer(storedProcedure, parametros);
+                if (tabla.Rows.Count > 0)
+                {
+                    DataRow fila = tabla.Rows[0];
+                    equipo = new Equipo(
+                        Convert.ToInt64(fila["Id"]),
+                        fila["Nombre"].ToString(),
+                        fila["Descripcion"].ToString(),
+                        null // La lista de jugadores se asignará después si es necesario
+                    );
+                }
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return equipo;
         }
 
         public bool EliminarJugadordeEquipo(long equipoId, long jugadorId)

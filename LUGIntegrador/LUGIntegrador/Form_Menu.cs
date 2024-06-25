@@ -17,7 +17,6 @@ namespace LUGIntegrador
     {
         private Form_Campeonato formcampeonatos;
         private Form_Equipo formequipo;
-        private Form_Partidos formpartidos ;
         private Form_Persona formpersonas;
         private UC_Login uc_login;
 
@@ -46,23 +45,31 @@ namespace LUGIntegrador
             menuStrip1.Visible = true;  
             uc_login.Visible = false;  
         }
-
         private void AbrirFormCampeonato(object sender, EventArgs e)
         {
             AbrirFormGeneral(ref formcampeonatos);
+            formcampeonatos.AbrirForm_Partidos += AbrirFormPartido;
+        }
+        private void AbrirFormPartido(object sender, CampeonatoEventArgs e)
+        {
+            Campeonato campeonato = e.campeonato;
+            var formPartidos = new Form_Partidos(campeonato);
+            formPartidos.MdiParent = this;
+            formPartidos.ControlBox = false;
+            formPartidos.FormBorderStyle = FormBorderStyle.None;
+            formPartidos.StartPosition = FormStartPosition.CenterScreen;
+            formPartidos.Show();
+            formPartidos.BringToFront();
         }
         private void AbrirFormEquipo(object sender, EventArgs e)
         {
             AbrirFormGeneral(ref formequipo);
         }
-        private void AbrirFormPartido(object sender, EventArgs e)
-        {
-            AbrirFormGeneral(ref formpartidos);
-        }
         private void AbrirFormPersona(object sender, EventArgs e)
         {
             AbrirFormGeneral(ref formpersonas);
         }
+ 
         private void AbrirFormGeneral<T>(ref T formulario) where T : Form, new()
         {
             if (formulario == null || formulario.IsDisposed)

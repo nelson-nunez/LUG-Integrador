@@ -25,8 +25,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seguridad", "Seguridad\Segu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SPs", "SPs", "{DF7572E2-86D8-44DB-8827-87E55B14A389}"
 	ProjectSection(SolutionItems) = preProject
-		InsertarCampeonato.txt = InsertarCampeonato.txt
-		ListarPersonas.txt = ListarPersonas.txt
+		ListarPersonas.sql = ListarPersonas.sql
+		sp_BajaCampeonato.sql = sp_BajaCampeonato.sql
+		sp_BajaEquipo.sql = sp_BajaEquipo.sql
+		sp_GuardarEquipo.sql = sp_GuardarEquipo.sql
+		sp_GuardarPersona.sql = sp_GuardarPersona.sql
+		sp_GuardarCampeonato.sql = sp_GuardarCampeonato.sql
+		sp_InsertarListaPartidos.sql = sp_InsertarListaPartidos.sql
+		sp_ListarCampeonatoPorId.sql = sp_ListarCampeonatoPorId.sql
+		sp_ListarCampeonatos.sql = sp_ListarCampeonatos.sql
+		sp_ListarEquipoPorId.sql = sp_ListarEquipoPorId.sql
+		sp_ListarEquipos.sql = sp_ListarEquipos.sql
+		sp_ListarPartidosPorCampeonato.sql = sp_ListarPartidosPorCampeonato.sql
+		sp_Login.sql = sp_Login.sql
 	EndProjectSection
 EndProject
 Global

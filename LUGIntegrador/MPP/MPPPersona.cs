@@ -22,33 +22,24 @@ namespace MPP
 
         public Persona Login(string email, string password)
         {
-            string consulta =
-                "SELECT p.Id, p.Nombre, p.Apellido, p.DNI, p.Telefono, p.FechaNacimiento, " +
-                $"CASE " +
-                $"    WHEN j.Id IS NOT NULL THEN 'Jugador' " +
-                $"    WHEN t.Id IS NOT NULL THEN 'Tecnico' " +
-                $"END AS Tipo " +
-                $"FROM Persona p " +
-                $"LEFT JOIN Jugador j ON p.Id = j.Id " +
-                $"LEFT JOIN Tecnico t ON p.Id = t.Id " +
-                $"WHERE p.Email = '{email}' AND p.Password = '{password}'";
+            // Create a list of SqlParameter objects for the stored procedure
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            parameters.Add(new SqlParameter("@Email", email));
+            parameters.Add(new SqlParameter("@Password", password));
 
-            DataSet ds = oDatos.Leer2(consulta);
-
-            if (ds.Tables[0].Rows.Count > 0)
+            DataTable personaData = oDatos.Leer("sp_Login", parameters);
+            if (personaData.Rows.Count > 0)
             {
-                DataRow fila = ds.Tables[0].Rows[0];
-                return new Persona(
-                    Convert.ToInt64(fila["Id"]),
-                    fila["Nombre"].ToString(),
-                    fila["Apellido"].ToString(),
-                    fila["DNI"].ToString(),
-                    fila["Telefono"].ToString(),
-                    Convert.ToDateTime(fila["FechaNacimiento"]),
-                    email,
-                    password,
-                    fila["Tipo"].ToString()
-                );
+                DataRow personaRow = personaData.Rows[0];
+                int id = Convert.ToInt32(personaRow["Id"]);
+                string nombre = personaRow["Nombre"].ToString();
+                string apellido = personaRow["Apellido"].ToString();
+                string dni = personaRow["DNI"].ToString();
+                string telefono = personaRow["Telefono"].ToString();
+                DateTime fechaNacimiento = Convert.ToDateTime(personaRow["FechaNacimiento"]);
+                string tipo = personaRow["Tipo"].ToString();
+
+                return new Persona(id, nombre, apellido, dni, telefono, fechaNacimiento, email, password, tipo);
             }
 
             return null;
@@ -58,18 +49,24 @@ namespace MPP
         {
             if (string.IsNullOrEmpty(item.Email) || string.IsNullOrEmpty(item.Password))
                 throw new Exception("Los campos Email y Contraseña no pueden estar vacíos");
-
-            string selectQuery = $"SELECT Id FROM Persona WHERE Id = {item.Id}";
-            DataSet ds = oDatos.Leer2(selectQuery);
-            if (ds.Tables[0].Rows.Count > 0)
+            string storedProcedure = "sp_GuardarPersona";
+            bool resultado = false;
+            List<SqlParameter> parametros = new List<SqlParameter>
             {
-                //La encripto para gardarla
-                var encpass= Encriptacion.EncriptarPass(item.Password);
-                string updateQuery = $"UPDATE Persona SET Email = '{item.Email}', Password = '{encpass}' WHERE Id = {item.Id}";
-                return oDatos.Escribir(updateQuery);
+                new SqlParameter("@Id", item.Id),
+                new SqlParameter("@Email", item.Email),
+                new SqlParameter("@Password", item.Password)
+            };
+            try
+            {
+                resultado = oDatos.Escribir(storedProcedure, parametros);
             }
-            else
-                throw new Exception("No existe la persona con el Id especificado.");
+            catch (Exception ex)
+            {
+                resultado = false;
+                throw ex;
+            }
+            return resultado;
         }
 
         public List<Persona> ListarTodo()

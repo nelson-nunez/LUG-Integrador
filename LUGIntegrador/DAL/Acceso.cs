@@ -164,6 +164,7 @@ namespace DAL
         #endregion
 
         #region OPERACIONES CON LIST
+
         public DataTable Leer(string consulta, List<SqlParameter> parametros)
         {
             DataTable tabla = new DataTable();
@@ -237,7 +238,6 @@ namespace DAL
         public bool Escribir(string consulta, List<SqlParameter> parametros)
         {
             bool exito = false;
-
             using (SqlCommand comando = new SqlCommand(consulta, _connection))
             {
                 comando.CommandType = CommandType.StoredProcedure;
@@ -249,16 +249,14 @@ namespace DAL
                         comando.Parameters.AddWithValue(parametro.ParameterName, parametro.Value);
                     }
                 }
-
                 try
                 {
                     _connection.Open();
                     _transaction = _connection.BeginTransaction();
                     comando.Transaction = _transaction;
-
-                    int respuesta = comando.ExecuteNonQuery();
+                    comando.ExecuteNonQuery();
                     _transaction.Commit();
-                    exito = true;
+                    exito = true; // Si no hay excepciones, consideramos que fue exitoso
                 }
                 catch (SqlException ex)
                 {
@@ -278,6 +276,7 @@ namespace DAL
 
             return exito;
         }
+
 
         #endregion
 

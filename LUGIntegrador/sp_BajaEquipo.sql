@@ -1,0 +1,9 @@
+﻿CREATE PROCEDURE sp_BajaEquipo
+    @Id BIGINT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM Equipo
+    WHERE Id = @Id;
+END

@@ -31,7 +31,7 @@ namespace LUGIntegrador
 
         #endregion
 
-        public Form_Partidos()
+        public Form_Partidos(Campeonato campeonato)
         {
             InitializeComponent();
 
@@ -41,15 +41,14 @@ namespace LUGIntegrador
             bLLEquipo = new BLLEquipo();
 
             equipoActual = new Equipo();
-            campeonatoActual = new Campeonato();
+            campeonatoActual = campeonato!= null ? campeonato : new Campeonato();
             partidoActual = new Partido();
 
-            dataGridView1.ConfigurarGrids();
             dataGridView2.ConfigurarGrids();
-
-            dataGridView1.Mostrar(bllCampeonato.ListarTodoConFixture());
             comboBox1.DataSource = bLLEquipo.ListarTodo(false);
             comboBox1.DisplayMember = "Nombre";
+            lbl_campeonato.Text = campeonatoActual.Nombre;
+            quede cargando los partidos
         }
 
         //Combobox
@@ -65,26 +64,10 @@ namespace LUGIntegrador
             }
             finally
             {
-                label1.Text = "Equipo: " + equipoActual.Nombre;
+                Mostrar();
             }
         }
-        //Click en datagrid1 Campeonatos
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                campeonatoActual = dataGridView1.VerificarYRetornarSeleccion<Campeonato>();
-                //dataGridView2.Mostrar(campeonatoActual.RetornarVista());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                label2.Text = "Campeonato: " + campeonatoActual.Nombre;
-            }
-        }
+
         //Click partidos
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -99,9 +82,10 @@ namespace LUGIntegrador
             }
             finally
             {
-                label3.Text = "Partido: " + partidoActual.Fecha.ToShortDateString();
+                Mostrar();
             }
         }
+     
         //Convocatoria
         private void button5_Click(object sender, EventArgs e)
         {
@@ -124,7 +108,18 @@ namespace LUGIntegrador
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }           
+            }
+            finally
+            {
+                Mostrar();
+            }
+        }
+
+        private void Mostrar()
+        {
+            lbl_campeonato.Text = "Campeonato: " + campeonatoActual?.Nombre;
+            lbl_equipo.Text = "Equipo: " + equipoActual?.Nombre;
+            lbl_partido.Text = "Fecha: " + partidoActual?.Fecha.ToShortDateString();
         }
     }
 }

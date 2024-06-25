@@ -5,16 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
+using System.IO;
+using System.Xml.Linq;
 
 namespace MPP
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Data.SqlClient;
-    using System.Linq;
 
     public class MPPCampeonato : IGestor<Campeonato>
     {
@@ -27,13 +25,12 @@ namespace MPP
 
         public List<Campeonato> ListarTodo(bool include)
         {
-            string consulta = "SELECT Id, Nombre, FechaInicio, FechaFin, CantidadPartidos, CantidadJugadores FROM Campeonato";
-            DataSet ds = oDatos.Leer2(consulta);
+            string storedProcedure = "sp_ListarCampeonatos";
             List<Campeonato> listaCampeonatos = new List<Campeonato>();
-
-            if (ds.Tables[0].Rows.Count > 0)
+            DataTable tabla = oDatos.Leer(storedProcedure, null);
+            if (tabla.Rows.Count > 0)
             {
-                foreach (DataRow fila in ds.Tables[0].Rows)
+                foreach (DataRow fila in tabla.Rows)
                 {
                     Campeonato campeonato = new Campeonato(
                         Convert.ToInt64(fila["Id"]),
@@ -42,7 +39,7 @@ namespace MPP
                         Convert.ToDateTime(fila["FechaFin"]),
                         Convert.ToInt32(fila["CantidadPartidos"]),
                         Convert.ToInt32(fila["CantidadJugadores"]),
-                        include ? ListarPartidosPorCampeonato(Convert.ToInt64(fila["Id"])): null
+                        include ? ListarPartidosPorCampeonato(Convert.ToInt64(fila["Id"])) : null
                     );
 
                     listaCampeonatos.Add(campeonato);
@@ -53,13 +50,16 @@ namespace MPP
 
         private List<Partido> ListarPartidosPorCampeonato(long campeonatoId)
         {
-            string consulta = $"SELECT Id, Fecha, Duracion, NumeroCancha, Ubicacion, Categoria FROM Partido WHERE CampeonatoId = {campeonatoId}";
-            DataSet ds = oDatos.Leer2(consulta);
+            string storedProcedure = "sp_ListarPartidosPorCampeonato";
             List<Partido> listaPartidos = new List<Partido>();
-
-            if (ds.Tables[0].Rows.Count > 0)
+            List<SqlParameter> parametros = new List<SqlParameter>
             {
-                foreach (DataRow fila in ds.Tables[0].Rows)
+                new SqlParameter("@CampeonatoId", campeonatoId)
+            };
+            DataTable tabla = oDatos.Leer(storedProcedure, parametros);
+            if (tabla.Rows.Count > 0)
+            {
+                foreach (DataRow fila in tabla.Rows)
                 {
                     Partido partido = new Partido(
                         Convert.ToInt64(fila["Id"]),
@@ -70,9 +70,8 @@ namespace MPP
                         fila["Categoria"].ToString(),
                         null,
                         null,
-                        null
+                        null  
                     );
-
                     listaPartidos.Add(partido);
                 }
             }
@@ -81,10 +80,8 @@ namespace MPP
 
         public bool Guardar(Campeonato campeonato)
         {
-            string storedProcedure = (campeonato.Id != 0) ? "ActualizarCampeonato" : "InsertarCampeonato";
+            string storedProcedure = "sp_GuardarCampeonato";
             bool resultado = false;
-
-            // Crear lista de parámetros para el procedimiento almacenado
             List<SqlParameter> parametros = new List<SqlParameter>
             {
                 new SqlParameter("@Id", campeonato.Id),
@@ -93,63 +90,88 @@ namespace MPP
                 new SqlParameter("@FechaFin", campeonato.FechaFin),
                 new SqlParameter("@CantidadPartidos", campeonato.CantidadPartidos),
                 new SqlParameter("@CantidadJugadores", campeonato.CantidadJugadores),
-                // Parámetro de salida para obtener el resultado de la operación
-                new SqlParameter("@Resultado", SqlDbType.Bit) { Direction = ParameterDirection.Output }
             };
-
             try
             {
                 resultado = oDatos.Escribir(storedProcedure, parametros);
-
-                // Recuperar el valor de resultado desde el parámetro de salida
-                resultado = (bool)parametros[parametros.Count - 1].Value;
+                if (resultado && campeonato.Partidos != null && campeonato.Partidos.Count > 0)
+                {
+                    XElement xmlPartidos = new XElement("Partidos",
+                        from partido in campeonato.Partidos
+                        select new XElement("Partido",
+                            new XElement("Fecha", partido.Fecha),
+                            new XElement("Duracion", partido.Duracion),
+                            new XElement("NumeroCancha", partido.NumeroCancha),
+                            new XElement("Ubicacion", partido.Ubicacion),
+                            new XElement("Categoria", partido.Categoria),
+                            new XElement("CampeonatoId", partido.Campeonato.Id)
+                        )
+                    );
+                    string xmlString = xmlPartidos.ToString();
+                    SqlParameter paramXmlPartidos = new SqlParameter("@XmlPartidos", SqlDbType.Xml);
+                    paramXmlPartidos.Value = new SqlXml(new XmlTextReader(new StringReader(xmlString)));
+                    resultado = oDatos.Escribir("sp_InsertarListaPartidos", new List<SqlParameter> { paramXmlPartidos });
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al ejecutar el procedimiento almacenado: " + ex.Message);
                 resultado = false;
+                throw ex;
             }
 
             return resultado;
         }
 
-        public bool AgregarPartido(Campeonato campeonato, Partido partido)
-        {
-            string consulta = $"INSERT INTO Partido (Fecha, Duracion, NumeroCancha, Ubicacion, Categoria, CampeonatoId) VALUES ('{partido.Fecha:yyyy-MM-dd HH:mm:ss}', {partido.Duracion}, {partido.NumeroCancha}, '{partido.Ubicacion}', '{partido.Categoria}', {campeonato.Id})";
-            return oDatos.Escribir(consulta);
-        }
-
-        public bool QuitarPartido(Campeonato campeonato, Partido partido)
-        {
-            string consulta = $"DELETE FROM Partido WHERE CampeonatoId = {campeonato.Id} AND Id = {partido.Id}";
-            return oDatos.Escribir(consulta);
-        }
-
         public bool Baja(long Id)
         {
-            string consultaSQL = $"DELETE FROM Campeonato WHERE Id = {Id}";
-            return oDatos.Escribir(consultaSQL);
+            string storedProcedure = "sp_BajaCampeonato";
+            List<SqlParameter> parametros = new List<SqlParameter>
+            {
+                new SqlParameter("@Id", Id)
+            };
+            try
+            {
+                return oDatos.Escribir(storedProcedure, parametros);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al ejecutar el procedimiento almacenado: " + ex.Message);
+                return false;
+            }
         }
 
         public Campeonato ListarObjeto(long Id)
         {
-            string consulta = $"SELECT Id, Nombre, FechaInicio, FechaFin, CantidadPartidos, CantidadJugadores FROM Campeonato WHERE Id = {Id}";
-            DataSet ds = oDatos.Leer2(consulta);
-
-            if (ds.Tables[0].Rows.Count > 0)
+            string storedProcedure = "sp_ListarCampeonatoPorId";
+            List<SqlParameter> parametros = new List<SqlParameter>
             {
-                DataRow fila = ds.Tables[0].Rows[0];
-                return new Campeonato(
-                    Convert.ToInt64(fila["Id"]),
-                    fila["Nombre"].ToString(),
-                    Convert.ToDateTime(fila["FechaInicio"]),
-                    Convert.ToDateTime(fila["FechaFin"]),
-                    Convert.ToInt32(fila["CantidadPartidos"]),
-                    Convert.ToInt32(fila["CantidadJugadores"]),
-                    ListarPartidosPorCampeonato(Convert.ToInt64(fila["Id"]))
-                );
+                new SqlParameter("@Id", Id)
+            };
+            try
+            {
+                DataTable tabla = oDatos.Leer(storedProcedure, parametros);
+
+                if (tabla.Rows.Count > 0)
+                {
+                    DataRow fila = tabla.Rows[0];
+                    return new Campeonato(
+                        Convert.ToInt64(fila["Id"]),
+                        fila["Nombre"].ToString(),
+                        Convert.ToDateTime(fila["FechaInicio"]),
+                        Convert.ToDateTime(fila["FechaFin"]),
+                        Convert.ToInt32(fila["CantidadPartidos"]),
+                        Convert.ToInt32(fila["CantidadJugadores"]),
+                        ListarPartidosPorCampeonato(Convert.ToInt64(fila["Id"]))
+                    );
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al ejecutar el procedimiento almacenado: " + ex.Message);
+                return null;
+            }
         }
+
     }
 }

@@ -25,13 +25,6 @@ namespace BLL
             return oMPPCampeonato.ListarTodo(include);
         }
 
-        public List<Campeonato> ListarTodoConFixture()
-        {
-            var list = oMPPCampeonato.ListarTodo(true);
-
-            return list.Where(X=>X.Partidos.IsNOTNullOrEmpty()).ToList();
-        }
-
         public bool Guardar(Campeonato campeonato)
         {
             var item = ListarObjeto(campeonato.Id);

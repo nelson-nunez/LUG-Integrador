@@ -11,18 +11,15 @@ using BE;
 using BLL;
 using Abstraccion.Extensiones;
 using UI_LUGIntegrador.Extensiones;
+using LUGIntegrador;
 
 namespace UI_LUGIntegrador
 {
     public partial class Form_Campeonato : Form
     {
-        #region Blls
-
         BLLCampeonato bllCampeonato;
         Campeonato campeonatoActual;
-       
-        #endregion
-
+        public event EventHandler<CampeonatoEventArgs> AbrirForm_Partidos;
         public Form_Campeonato()
         {
             InitializeComponent();
@@ -59,7 +56,8 @@ namespace UI_LUGIntegrador
             finally
             {
                 dataGridView1.CargarGrid(new List<string> { "Nombre", "FechaInicio", "FechaFin", "CantidadPartidos", "CantidadJugadores" }, bllCampeonato.ListarTodo(true));
-                label5.Visible = false;
+                button1.Visible = false;
+                button3.Visible = false;
             }
         }
 
@@ -80,7 +78,7 @@ namespace UI_LUGIntegrador
             finally
             {
                 dataGridView1.CargarGrid(new List<string> { "Nombre", "FechaInicio", "FechaFin", "CantidadPartidos", "CantidadJugadores" }, bllCampeonato.ListarTodo(true));
-                label5.Visible = false;
+                button1.Visible = false;
             }
         }
 
@@ -90,12 +88,12 @@ namespace UI_LUGIntegrador
             try
             {
                 var response = bllCampeonato.GuardarGenerandoFixture(campeonatoActual);
-                label5.Visible = true;
+                button1.Visible = true;
                 button3.Visible = false;
             }
             catch (Exception ex)
             {
-                label5.Visible = false;
+                button1.Visible = false;
                 button3.Visible = true;
                 MessageBox.Show(ex.Message);
             }      
@@ -111,15 +109,21 @@ namespace UI_LUGIntegrador
             if (campeonatoActual.Partidos.IsNOTNullOrEmpty())
             {
                 button3.Visible = false;
-                label5.Visible = true;
+                button1.Visible = true;
             }
             else
             {
                 button3.Visible = true;
-                label5.Visible = false;
+                button1.Visible = false;
             }
         }
-
+ 
+        //Ver partidos        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            campeonatoActual = dataGridView1.VerificarYRetornarSeleccion<Campeonato>();
+            AbrirForm_Partidos?.Invoke(this, new CampeonatoEventArgs(campeonatoActual));
+        }
 
         #region Metodos
 
@@ -153,5 +157,15 @@ namespace UI_LUGIntegrador
 
         #endregion
 
+    }
+
+    public class CampeonatoEventArgs : EventArgs
+    {
+        public Campeonato campeonato { get; }
+
+        public CampeonatoEventArgs(Campeonato campeonato)
+        {
+            this.campeonato = campeonato;
+        }
     }
 }
