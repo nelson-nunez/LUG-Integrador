@@ -21,20 +21,14 @@ namespace BE
 
         #endregion
 
-        #region Metodos
+        #region Constructor
+
         public Jugador() { }
+
         public Jugador(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento, string email, string password,
             string posicion, int edad, int altura, int peso, Equipo equipo, List<Partido> partidos, List<Convocatoria> convocatorias)
+            : base(id, nombre, apellido, dni, telefono, fechaNacimiento, email, password, "Jugador")
         {
-            Id = id;
-            Nombre = nombre;
-            Apellido = apellido;
-            DNI = dni;
-            Telefono = telefono;
-            FechaNacimiento = fechaNacimiento;
-            Email = email;
-            Password = password;
-
             Posicion = posicion;
             Edad = edad;
             Altura = altura;
@@ -42,15 +36,6 @@ namespace BE
             Equipo = equipo ?? new Equipo();
             Partidos = partidos ?? new List<Partido>();
             Convocatorias = convocatorias ?? new List<Convocatoria>();
-        }
-
-        public override object RetornarMenu()
-        {
-            var vista = new
-            {
-
-            };
-            return vista;
         }
 
         #endregion

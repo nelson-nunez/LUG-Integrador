@@ -35,7 +35,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.contraseña = new System.Windows.Forms.TextBox();
             this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.email = new System.Windows.Forms.TextBox();
             this.groupBox5.SuspendLayout();
@@ -67,6 +66,7 @@
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Size = new System.Drawing.Size(672, 389);
             this.dataGridView1.TabIndex = 124;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // groupBox6
             // 
@@ -74,7 +74,6 @@
             this.groupBox6.Controls.Add(this.label1);
             this.groupBox6.Controls.Add(this.contraseña);
             this.groupBox6.Controls.Add(this.button10);
-            this.groupBox6.Controls.Add(this.button11);
             this.groupBox6.Controls.Add(this.label13);
             this.groupBox6.Controls.Add(this.email);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -107,26 +106,13 @@
             this.button10.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.button10.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button10.ForeColor = System.Drawing.Color.White;
-            this.button10.Location = new System.Drawing.Point(620, 62);
+            this.button10.Location = new System.Drawing.Point(620, 41);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(82, 36);
             this.button10.TabIndex = 148;
             this.button10.Text = "Guardar";
             this.button10.UseVisualStyleBackColor = false;
             this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // button11
-            // 
-            this.button11.BackColor = System.Drawing.Color.IndianRed;
-            this.button11.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button11.ForeColor = System.Drawing.Color.White;
-            this.button11.Location = new System.Drawing.Point(620, 20);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(82, 36);
-            this.button11.TabIndex = 147;
-            this.button11.Text = "Borrar";
-            this.button11.UseVisualStyleBackColor = false;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // label13
             // 
@@ -170,7 +156,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox contraseña;
         private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox email;
     }

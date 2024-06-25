@@ -20,17 +20,12 @@ namespace LUGIntegrador
     {
         BLLPersona bllPersona;
         BLLPrueba bllPrueba;
-        PersonaView loggedperson;
+        Persona loggedperson;
         public event EventHandler<PersonaEventArgs> LoginSuccess;
         public UC_Login()
         {
             InitializeComponent();
-
             bllPrueba = new BLLPrueba();
-            //var tt = bllPrueba.TestCX();
-            //MessageBox.Show(tt);
-
-
             bllPersona = new BLLPersona();
             //Prueba borrar
             email.Text = "carlos.ramirez@example.com";
@@ -54,13 +49,9 @@ namespace LUGIntegrador
             {
                 MessageBox.Show(ex.Message);
             }
-            finally
-            {
-                //
-            }
         }
 
-        private void OnLoginSuccess(PersonaView persona)
+        private void OnLoginSuccess(Persona persona)
         {
             LoginSuccess?.Invoke(this, new PersonaEventArgs(persona));
         }
@@ -82,9 +73,9 @@ namespace LUGIntegrador
 
     public class PersonaEventArgs : EventArgs
     {
-        public PersonaView Persona { get; }
+        public Persona Persona { get; }
 
-        public PersonaEventArgs(PersonaView persona)
+        public PersonaEventArgs(Persona persona)
         {
             Persona = persona;
         }

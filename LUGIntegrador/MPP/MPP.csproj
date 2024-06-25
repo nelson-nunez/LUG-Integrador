@@ -63,6 +63,10 @@
       <Project>{5eaf0fae-fe6f-43b9-943b-eb5195472357}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Seguridad\Seguridad.csproj">
+      <Project>{4159C493-EF40-44AC-B8AD-79CAABD44CA1}</Project>
+      <Name>Seguridad</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

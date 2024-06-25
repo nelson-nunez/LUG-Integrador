@@ -16,34 +16,16 @@ namespace BE
 
         #endregion
 
-        #region Metodos
-        public Tecnico() { }
-        public Tecnico(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento, string email, string password,
-            string titulo, int nro_licencia, Equipo equipo)
-        {
-            Id = id;
-            Nombre = nombre;
-            Apellido = apellido;
-            DNI = dni;
-            Telefono = telefono;
-            FechaNacimiento = fechaNacimiento;
-            Email = email;
-            Password = password;
+        #region Constructor
 
-            Titulo = telefono;
+        public Tecnico() { }
+
+        public Tecnico(long id, string nombre, string apellido, string dni, string telefono, DateTime fechaNacimiento, string email, string password,
+            string titulo, int nro_licencia, Equipo equipo) : base(id, nombre, apellido, dni, telefono, fechaNacimiento, email, password, "Tecnico")
+        {
+            Titulo = titulo;
             Nro_licencia = nro_licencia;
             Equipo = equipo ?? new Equipo();
-        }
-
-        public override object RetornarMenu()
-        {
-            var vista = new
-            {
-                //Convocatorias,
-                //Estadisticas,
-                //Partidos,
-            };
-            return vista;
         }
 
         #endregion

@@ -26,22 +26,28 @@ namespace UI_LUGIntegrador
         public Form_Campeonato()
         {
             InitializeComponent();
-            
-            //MessageBox.Show(oBLLPrueba.TestCX(), "PROBANDO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
+                      
             bllCampeonato = new BLLCampeonato();
             campeonatoActual = new Campeonato();
             dataGridView1.ConfigurarGrids();
-            dataGridView1.Mostrar(bllCampeonato.ListarTodo(true));
+            dataGridView1.CargarGrid(new List<string> { "Nombre", "FechaInicio", "FechaFin", "CantidadPartidos", "CantidadJugadores"}, bllCampeonato.ListarTodo(true));
         }
 
-        //Editar
-        private void button5_Click(object sender, EventArgs e)
+        #region Botones
+
+        private void button_Limpiar_Click(object sender, EventArgs e)
+        {
+            campeonatoActual = new Campeonato();
+            CargarDatos(campeonatoActual);
+        }
+
+        private void button_Editar_Click(object sender, EventArgs e)
         {
             try
             {
                 campeonatoActual = dataGridView1.VerificarYRetornarSeleccion<Campeonato>();
                 VerificarDatos();
+                InputsExtensions.PedirConfirmacion();
                 var response = bllCampeonato.Guardar(campeonatoActual);
                 if (response)
                     MessageBox.Show("Se guardaron los cambios con éxito");
@@ -52,17 +58,17 @@ namespace UI_LUGIntegrador
             }
             finally
             {
-                dataGridView1.Mostrar(bllCampeonato.ListarTodo(false));
+                dataGridView1.CargarGrid(new List<string> { "Nombre", "FechaInicio", "FechaFin", "CantidadPartidos", "CantidadJugadores" }, bllCampeonato.ListarTodo(true));
                 label5.Visible = false;
             }
         }
 
-        //Guardar
-        private void button7_Click(object sender, EventArgs e)
+        private void button_Guardar_Click(object sender, EventArgs e)
         {
             try
             {
                 VerificarDatos();
+                InputsExtensions.PedirConfirmacion();
                 var response = bllCampeonato.Guardar(campeonatoActual);
                 if (response)
                     MessageBox.Show("Se guardaron los cambios con éxito");
@@ -73,32 +79,7 @@ namespace UI_LUGIntegrador
             }
             finally
             {
-                dataGridView1.Mostrar(bllCampeonato.ListarTodo(false));
-                label5.Visible = false;
-            }
-        }
-
-
-        //Limpiar
-        private void button6_Click(object sender, EventArgs e)
-        {
-            campeonatoActual= new Campeonato();
-            CargarDatos(campeonatoActual);
-        }
-
-        //Click en datagrid
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            campeonatoActual = dataGridView1.VerificarYRetornarSeleccion<Campeonato>();
-            CargarDatos(campeonatoActual);
-            if (campeonatoActual.Partidos.IsNOTNullOrEmpty())
-            {
-                button3.Visible = false;
-                label5.Visible = true;
-            }
-            else
-            {
-                button3.Visible = true;
+                dataGridView1.CargarGrid(new List<string> { "Nombre", "FechaInicio", "FechaFin", "CantidadPartidos", "CantidadJugadores" }, bllCampeonato.ListarTodo(true));
                 label5.Visible = false;
             }
         }
@@ -119,6 +100,26 @@ namespace UI_LUGIntegrador
                 MessageBox.Show(ex.Message);
             }      
         }
+
+        #endregion
+
+        //Click en datagrid
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            campeonatoActual = dataGridView1.VerificarYRetornarSeleccion<Campeonato>();
+            CargarDatos(campeonatoActual);
+            if (campeonatoActual.Partidos.IsNOTNullOrEmpty())
+            {
+                button3.Visible = false;
+                label5.Visible = true;
+            }
+            else
+            {
+                button3.Visible = true;
+                label5.Visible = false;
+            }
+        }
+
 
         #region Metodos
 
@@ -141,8 +142,7 @@ namespace UI_LUGIntegrador
             || (numericUpDown1.Value <= 0)
             || (numericUpDown2.Value <= 0))
             {
-                MessageBox.Show("Complete todos los campos para continuar");
-                return;
+                throw new Exception("Complete todos los campos para continuar");
             }
             campeonatoActual.Nombre= textBox1.Text;
             campeonatoActual.FechaInicio = dateTimePicker1.Value;

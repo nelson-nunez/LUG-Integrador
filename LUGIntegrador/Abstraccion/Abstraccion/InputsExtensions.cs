@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace UI_LUGIntegrador.Extensiones
 {
@@ -54,6 +55,13 @@ namespace UI_LUGIntegrador.Extensiones
             {
                 return false;
             }
+        }
+
+        public static void PedirConfirmacion()
+        {
+            DialogResult result = MessageBox.Show("Desea continuar con la operación?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.No)
+                throw new Exception("Se canceló la operación");
         }
     }
 }

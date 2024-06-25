@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Seguridad;
 
 namespace MPP
 {
@@ -19,10 +20,10 @@ namespace MPP
             oDatos = new Acceso();
         }
 
-        public PersonaView Login(string email, string password)
+        public Persona Login(string email, string password)
         {
             string consulta =
-                $"SELECT p.Id, p.Nombre, p.Apellido, p.DNI, p.Telefono, " +
+                "SELECT p.Id, p.Nombre, p.Apellido, p.DNI, p.Telefono, p.FechaNacimiento, " +
                 $"CASE " +
                 $"    WHEN j.Id IS NOT NULL THEN 'Jugador' " +
                 $"    WHEN t.Id IS NOT NULL THEN 'Tecnico' " +
@@ -37,12 +38,15 @@ namespace MPP
             if (ds.Tables[0].Rows.Count > 0)
             {
                 DataRow fila = ds.Tables[0].Rows[0];
-                return new PersonaView(
+                return new Persona(
                     Convert.ToInt64(fila["Id"]),
                     fila["Nombre"].ToString(),
                     fila["Apellido"].ToString(),
                     fila["DNI"].ToString(),
                     fila["Telefono"].ToString(),
+                    Convert.ToDateTime(fila["FechaNacimiento"]),
+                    email,
+                    password,
                     fila["Tipo"].ToString()
                 );
             }
@@ -50,40 +54,46 @@ namespace MPP
             return null;
         }
 
-        public bool GuardarUsuario(long Id, string email, string password)
+        public bool GuardarUsuario(Persona item)
         {
-            string selectQuery = $"SELECT Id FROM Persona WHERE Id = {Id}";
+            if (string.IsNullOrEmpty(item.Email) || string.IsNullOrEmpty(item.Password))
+                throw new Exception("Los campos Email y Contraseña no pueden estar vacíos");
+
+            string selectQuery = $"SELECT Id FROM Persona WHERE Id = {item.Id}";
             DataSet ds = oDatos.Leer2(selectQuery);
             if (ds.Tables[0].Rows.Count > 0)
             {
-                string updateQuery = $"UPDATE Persona SET Email = '{email}', Password = '{password}' WHERE Id = {Id}";
+                //La encripto para gardarla
+                var encpass= Encriptacion.EncriptarPass(item.Password);
+                string updateQuery = $"UPDATE Persona SET Email = '{item.Email}', Password = '{encpass}' WHERE Id = {item.Id}";
                 return oDatos.Escribir(updateQuery);
             }
             else
-            {
                 throw new Exception("No existe la persona con el Id especificado.");
-            }
         }
 
-        public List<PersonaView> ListarTodo()
+        public List<Persona> ListarTodo()
         {
-            var personas = new List<PersonaView>();
+            var personas = new List<Persona>();
 
             string storedProcedure = "ListarPersonas";
             DataTable tabla = oDatos.Leer(storedProcedure, null);
 
             if (tabla.Rows.Count > 0)
             {
-                foreach (DataRow row in tabla.Rows)
+                foreach (DataRow fila in tabla.Rows)
                 {
-                    var persona = new PersonaView
+                    var persona = new Persona
                     (
-                        Convert.ToInt64(row["Id"]),
-                        row["Nombre"].ToString(),
-                        row["Apellido"].ToString(),
-                        row["DNI"].ToString(),
-                        row["Telefono"].ToString(),
-                        row["Tipo"].ToString()
+                        Convert.ToInt64(fila["Id"]),
+                        fila["Nombre"].ToString(),
+                        fila["Apellido"].ToString(),
+                        fila["DNI"].ToString(),
+                        fila["Telefono"].ToString(),
+                        Convert.ToDateTime(fila["FechaNacimiento"]),
+                        fila["Email"].ToString(),
+                        fila["Password"].ToString(),
+                        fila["Tipo"].ToString()
                     );
                     personas.Add(persona);
                 }

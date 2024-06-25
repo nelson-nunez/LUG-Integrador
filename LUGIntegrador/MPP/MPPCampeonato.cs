@@ -13,6 +13,7 @@ namespace MPP
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Data.SqlClient;
     using System.Linq;
 
     public class MPPCampeonato : IGestor<Campeonato>
@@ -80,16 +81,35 @@ namespace MPP
 
         public bool Guardar(Campeonato campeonato)
         {
-            string consultaSQL;
-            if (campeonato.Id != 0)
+            string storedProcedure = (campeonato.Id != 0) ? "ActualizarCampeonato" : "InsertarCampeonato";
+            bool resultado = false;
+
+            // Crear lista de parámetros para el procedimiento almacenado
+            List<SqlParameter> parametros = new List<SqlParameter>
             {
-                consultaSQL = $"UPDATE Campeonato SET Nombre = '{campeonato.Nombre}', FechaInicio = '{campeonato.FechaInicio:yyyy-MM-dd}', FechaFin = '{campeonato.FechaFin:yyyy-MM-dd}', CantidadPartidos = {campeonato.CantidadPartidos}, CantidadJugadores = {campeonato.CantidadJugadores} WHERE Id = {campeonato.Id}";
-            }
-            else
+                new SqlParameter("@Id", campeonato.Id),
+                new SqlParameter("@Nombre", campeonato.Nombre),
+                new SqlParameter("@FechaInicio", campeonato.FechaInicio),
+                new SqlParameter("@FechaFin", campeonato.FechaFin),
+                new SqlParameter("@CantidadPartidos", campeonato.CantidadPartidos),
+                new SqlParameter("@CantidadJugadores", campeonato.CantidadJugadores),
+                // Parámetro de salida para obtener el resultado de la operación
+                new SqlParameter("@Resultado", SqlDbType.Bit) { Direction = ParameterDirection.Output }
+            };
+
+            try
             {
-                consultaSQL = $"INSERT INTO Campeonato (Nombre, FechaInicio, FechaFin, CantidadPartidos, CantidadJugadores) VALUES ('{campeonato.Nombre}', '{campeonato.FechaInicio:yyyy-MM-dd}', '{campeonato.FechaFin:yyyy-MM-dd}', {campeonato.CantidadPartidos}, {campeonato.CantidadJugadores})";
+                resultado = oDatos.Escribir(storedProcedure, parametros);
+
+                // Recuperar el valor de resultado desde el parámetro de salida
+                resultado = (bool)parametros[parametros.Count - 1].Value;
             }
-            bool resultado = oDatos.Escribir(consultaSQL);
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al ejecutar el procedimiento almacenado: " + ex.Message);
+                resultado = false;
+            }
+
             return resultado;
         }
 
@@ -132,5 +152,4 @@ namespace MPP
             return null;
         }
     }
-
 }

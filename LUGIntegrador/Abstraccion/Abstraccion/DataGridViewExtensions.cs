@@ -56,24 +56,20 @@ namespace Abstraccion.Extensiones
             dataGridView.AutoResizeColumns();
         }
 
-        public static void CargarGrid<T>(this DataGridView dataGridView, List<(string header, string field)> campos, List<T> listaDeItems)
+        public static void CargarGrid<T>(this DataGridView dataGridView, List<string> campos, List<T> listaDeItems)
         {
-            // Agrega las columnas al DataGridView si no existen
-            foreach (var (header, field) in campos)
+            dataGridView.Columns.Clear();
+            foreach (var field in campos)
             {
-                if (!dataGridView.Columns.Contains(field))
+                var columna = new DataGridViewTextBoxColumn
                 {
-                    var columna = new DataGridViewTextBoxColumn
-                    {
-                        DataPropertyName = field,
-                        HeaderText = header,
-                        Name = field
-                    };
-                    dataGridView.Columns.Add(columna);
-                }
+                    DataPropertyName = field,
+                    HeaderText = field,
+                    Name = field
+                };
+                dataGridView.Columns.Add(columna);
             }
-
-            // Asigna la lista como fuente de datos
+            dataGridView.AutoGenerateColumns = false;
             dataGridView.DataSource = null;
             dataGridView.DataSource = listaDeItems;
             dataGridView.AutoResizeColumns();

@@ -91,7 +91,7 @@
             this.opcionesToolStripMenuItem.Image = global::LUGIntegrador.Properties.Resources.user;
             this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
             this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(109, 20);
-            this.opcionesToolStripMenuItem.Text = "ABM Personal";
+            this.opcionesToolStripMenuItem.Text = "ABM Usuarios";
             this.opcionesToolStripMenuItem.Click += new System.EventHandler(this.AbrirFormPersona);
             // 
             // toolStripMenuItem1
