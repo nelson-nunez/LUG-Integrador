@@ -13,11 +13,11 @@ namespace BLL
     public class BLLConvocatoria : IGestor<Convocatoria>
     {
         private MPPConvocatoria oMPPConvocatoria;
-        private MPPJugador mppjugador;
+        private MPPPartido oMPPPartido;
         public BLLConvocatoria()
         {
             oMPPConvocatoria = new MPPConvocatoria();
-            mppjugador = new MPPJugador();
+            oMPPPartido = new MPPPartido();
         }
 
         public List<Convocatoria> ListarTodo(bool include)
@@ -32,18 +32,10 @@ namespace BLL
 
         public bool GenerarConvocatoriasParaPartido(Partido partido, Equipo equipo)
         {
-            var jugadores = mppjugador.ListarJugadoresPorEquipo(equipo.Id);
-            if (jugadores.IsNOTNullOrEmpty())
-            {
-                foreach (var item in jugadores)
-                {
-                    var convocatoria = new Convocatoria(0, item.Posicion, false, DateTime.Now, TimeSpan.Zero, partido.Ubicacion, item, partido);
-                    oMPPConvocatoria.Guardar(convocatoria);
-                }
-                return true;
-            }
-            else
-                return false;
+            var game = oMPPConvocatoria.ListarConFiltros(0,equipo.Id, 0, partido.Id);
+            if (game.Count() > 0)
+                throw new Exception("Ya existe una convocatoria para el partido");
+            return oMPPConvocatoria.CrearConvocatorias(partido, equipo);
         }
 
         public bool Baja(long Id)
@@ -54,6 +46,12 @@ namespace BLL
         public Convocatoria ListarObjeto(long Id)
         {
             return oMPPConvocatoria.ListarObjeto(Id);
+        }
+
+        public List<Convocatoria> ListarConFiltros(Campeonato campeonato, Equipo equipo, Jugador jugador, Partido partido)
+        {
+            var lista = oMPPConvocatoria.ListarConFiltros(campeonato?.Id, equipo?.Id, jugador?.Id, partido?.Id);
+            return lista;
         }
     }
 }

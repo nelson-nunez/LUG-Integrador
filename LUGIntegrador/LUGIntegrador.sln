@@ -26,18 +26,30 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SPs", "SPs", "{DF7572E2-86D8-44DB-8827-87E55B14A389}"
 	ProjectSection(SolutionItems) = preProject
 		ListarPersonas.sql = ListarPersonas.sql
+		sps jugadores.sql = sps jugadores.sql
 		sp_BajaCampeonato.sql = sp_BajaCampeonato.sql
 		sp_BajaEquipo.sql = sp_BajaEquipo.sql
-		sp_GuardarEquipo.sql = sp_GuardarEquipo.sql
-		sp_GuardarPersona.sql = sp_GuardarPersona.sql
+		sp_BajaPartido.sql = sp_BajaPartido.sql
+		sp_EliminarConvocatoria.sql = sp_EliminarConvocatoria.sql
 		sp_GuardarCampeonato.sql = sp_GuardarCampeonato.sql
+		sp_GuardarConvocatoria.sql = sp_GuardarConvocatoria.sql
+		sp_GuardarEquipo.sql = sp_GuardarEquipo.sql
+		sp_GuardarPartido.sql = sp_GuardarPartido.sql
+		sp_GuardarPersona.sql = sp_GuardarPersona.sql
 		sp_InsertarListaPartidos.sql = sp_InsertarListaPartidos.sql
 		sp_ListarCampeonatoPorId.sql = sp_ListarCampeonatoPorId.sql
 		sp_ListarCampeonatos.sql = sp_ListarCampeonatos.sql
+		sp_ListarConvocatorias.sql = sp_ListarConvocatorias.sql
+		sp_ListarConvocatoriasPorFiltros.sql = sp_ListarConvocatoriasPorFiltros.sql
 		sp_ListarEquipoPorId.sql = sp_ListarEquipoPorId.sql
 		sp_ListarEquipos.sql = sp_ListarEquipos.sql
+		sp_ListarJugadoresPorEquipo.sql = sp_ListarJugadoresPorEquipo.sql
+		sp_ListarPartidoPorId.sql = sp_ListarPartidoPorId.sql
+		sp_ListarPartidos.sql = sp_ListarPartidos.sql
 		sp_ListarPartidosPorCampeonato.sql = sp_ListarPartidosPorCampeonato.sql
+		sp_ListarPartidosPorJugador.sql = sp_ListarPartidosPorJugador.sql
 		sp_Login.sql = sp_Login.sql
+		sp_ObtenerConvocatoriaPorId.sql = sp_ObtenerConvocatoriaPorId.sql
 	EndProjectSection
 EndProject
 Global

@@ -1,0 +1,6 @@
+﻿CREATE PROCEDURE sp_BajaPartido
+    @Id BIGINT
+AS
+BEGIN
+    DELETE FROM Partido WHERE Id = @Id
+END

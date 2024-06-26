@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BE;
 using BLL;
 using Abstraccion.Extensiones;
-using UI_LUGIntegrador.Extensiones;
-using System.Reflection.Emit;
-using static BE.Campeonato;
 
 namespace LUGIntegrador
 {
@@ -44,11 +36,13 @@ namespace LUGIntegrador
             campeonatoActual = campeonato!= null ? campeonato : new Campeonato();
             partidoActual = new Partido();
 
-            dataGridView2.ConfigurarGrids();
+            dataGridView1.ConfigurarGrids();
             comboBox1.DataSource = bLLEquipo.ListarTodo(false);
             comboBox1.DisplayMember = "Nombre";
             lbl_campeonato.Text = campeonatoActual.Nombre;
-            quede cargando los partidos
+
+            dataGridView1.ConfigurarGrids();
+            dataGridView1.CargarGrid(new List<string> { "Fecha", "Duracion", "NumeroCancha", "Ubicacion", "Categoria" }, campeonatoActual.Partidos.ToList());
         }
 
         //Combobox
@@ -73,8 +67,7 @@ namespace LUGIntegrador
         {
             try
             {
-                //var item = dataGridView2.VerificarYRetornarSeleccion<PartidoView>();
-                //partidoActual = bllPartidos.ListarObjeto(item.Id);
+                partidoActual = dataGridView1.VerificarYRetornarSeleccion<Partido>();
             }
             catch (Exception ex)
             {
@@ -91,19 +84,14 @@ namespace LUGIntegrador
         {
             try
             {
-                //campeonatoActual = dataGridView1.VerificarYRetornarSeleccion<Campeonato>();
-                ////var item = dataGridView2.VerificarYRetornarSeleccion<PartidoView>();
-                //partidoActual = bllPartidos.ListarObjeto(item.Id);
-                //equipoActual = comboBox1.SelectedItem as Equipo;
-                //if (equipoActual == null || partidoActual == null || campeonatoActual==null)
-                //    throw new Exception("Seleccione un equipo, capeonato y partido para continuar.");
+                if (equipoActual?.Id == 0 || partidoActual?.Id == 0 || campeonatoActual?.Id == 0)
+                    throw new Exception("Seleccione un equipo, capeonato y partido para continuar.");
 
-                //var response = bllConvocatoria.GenerarConvocatoriasParaPartido(partidoActual, equipoActual);
-                //if (response)
-                //    MessageBox.Show("Se generó la convocatoria correctamente.");
-                //else
-                //    MessageBox.Show("Error. Intente nuevamente.");
-
+                var response = bllConvocatoria.GenerarConvocatoriasParaPartido(partidoActual, equipoActual);
+                if (response)
+                    MessageBox.Show("Se generó la convocatoria para el equipo correctamente.");
+                else
+                    MessageBox.Show("Error. Intente nuevamente.");
             }
             catch (Exception ex)
             {

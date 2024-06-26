@@ -25,7 +25,7 @@ namespace MPP
             // Create a list of SqlParameter objects for the stored procedure
             List<SqlParameter> parameters = new List<SqlParameter>();
             parameters.Add(new SqlParameter("@Email", email));
-            parameters.Add(new SqlParameter("@Password", password));
+            parameters.Add(new SqlParameter("@Password", Encriptacion.EncriptarPass(password)));
 
             DataTable personaData = oDatos.Leer("sp_Login", parameters);
             if (personaData.Rows.Count > 0)
@@ -55,7 +55,7 @@ namespace MPP
             {
                 new SqlParameter("@Id", item.Id),
                 new SqlParameter("@Email", item.Email),
-                new SqlParameter("@Password", item.Password)
+                new SqlParameter("@Password", Encriptacion.EncriptarPass(item.Password))
             };
             try
             {

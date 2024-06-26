@@ -18,6 +18,7 @@ namespace LUGIntegrador
         private Form_Campeonato formcampeonatos;
         private Form_Equipo formequipo;
         private Form_Persona formpersonas;
+        private Form_Convocatorias formconvocatorias;
         private UC_Login uc_login;
 
         public Form_Menu()
@@ -44,6 +45,10 @@ namespace LUGIntegrador
             MessageBox.Show($"Bienvenido, {persona.Nombre} {persona.Apellido}!");
             menuStrip1.Visible = true;  
             uc_login.Visible = false;  
+        }
+        private void AbrirFormConvocatorias(object sender, EventArgs e)
+        {
+            AbrirFormGeneral(ref formconvocatorias);
         }
         private void AbrirFormCampeonato(object sender, EventArgs e)
         {

@@ -65,6 +65,12 @@
     <Compile Include="Form_Campeonato.Designer.cs">
       <DependentUpon>Form_Campeonato.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Convocatorias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Convocatorias.Designer.cs">
+      <DependentUpon>Form_Convocatorias.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Equipo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,7 @@
     <Compile Include="Controles\UC_Login.Designer.cs">
       <DependentUpon>UC_Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="LINQtoXML.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controles\UC_Jugador.resx">
@@ -105,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Campeonato.resx">
       <DependentUpon>Form_Campeonato.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Convocatorias.resx">
+      <DependentUpon>Form_Convocatorias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Equipo.resx">
       <DependentUpon>Form_Equipo.cs</DependentUpon>

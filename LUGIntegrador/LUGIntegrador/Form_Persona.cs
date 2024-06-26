@@ -41,6 +41,7 @@ namespace LUGIntegrador
             {
                 itemActual = dataGridView1.VerificarYRetornarSeleccion<Persona>();
                 VerificarDatos();
+
                 var response = bllPersona.Guardar(itemActual);
                 if (response)
                     MessageBox.Show("Se guardaron los cambios con éxito");
@@ -49,6 +50,10 @@ namespace LUGIntegrador
             {
                 MessageBox.Show(ex.Message);
             }
+            finally
+            {
+                dataGridView1.CargarGrid(new List<string> { "Nombre", "Apellido", "DNI", "Telefono", "Tipo", "Email" }, bllPersona.ListarTodo());
+            }
         }
 
         private void VerificarDatos()
@@ -56,7 +61,8 @@ namespace LUGIntegrador
             // Verificar si el nombre del campeonato está vacío
             if (string.IsNullOrEmpty(email.Text) || string.IsNullOrEmpty(contraseña.Text))
                 throw new Exception("Complete todos los campos para continuar.");
-
+            itemActual.Email = email.Text;
+            itemActual.Password = contraseña.Text;
         }
 
         //Click en datagrid

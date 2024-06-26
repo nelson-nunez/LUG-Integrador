@@ -32,7 +32,6 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.descargarVideosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarTodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +59,6 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItem,
-            this.descargarVideosToolStripMenuItem,
             this.opcionesToolStripMenuItem,
             this.toolStripMenuItem1,
             this.cerrarTodoToolStripMenuItem});
@@ -78,14 +76,6 @@
             this.ToolStripMenuItem.Text = "ABM Campeonatos";
             this.ToolStripMenuItem.Click += new System.EventHandler(this.AbrirFormCampeonato);
             // 
-            // descargarVideosToolStripMenuItem
-            // 
-            this.descargarVideosToolStripMenuItem.Image = global::LUGIntegrador.Properties.Resources.personas;
-            this.descargarVideosToolStripMenuItem.Name = "descargarVideosToolStripMenuItem";
-            this.descargarVideosToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
-            this.descargarVideosToolStripMenuItem.Text = "ABM Equipos";
-            this.descargarVideosToolStripMenuItem.Click += new System.EventHandler(this.AbrirFormEquipo);
-            // 
             // opcionesToolStripMenuItem
             // 
             this.opcionesToolStripMenuItem.Image = global::LUGIntegrador.Properties.Resources.user;
@@ -98,8 +88,9 @@
             // 
             this.toolStripMenuItem1.Image = global::LUGIntegrador.Properties.Resources.campo;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(78, 20);
-            this.toolStripMenuItem1.Text = "Partidos";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(111, 20);
+            this.toolStripMenuItem1.Text = "Convocatorias";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.AbrirFormConvocatorias);
             // 
             // cerrarTodoToolStripMenuItem
             // 
@@ -133,7 +124,6 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem descargarVideosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem opcionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem cerrarTodoToolStripMenuItem;

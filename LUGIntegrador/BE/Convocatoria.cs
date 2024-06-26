@@ -14,6 +14,13 @@ namespace BE
         public TimeSpan Duracion { get; set; }
         public string Ubicacion { get; set; }
         public virtual Jugador Jugador { get; set; }
+        public string NombreJugador
+        {
+            get
+            {
+                return Jugador != null ? $"{Jugador.Nombre}, {Jugador.Apellido}" : "";
+            }
+        }
         public virtual Partido Partido { get; set; }
 
         public Convocatoria() { }

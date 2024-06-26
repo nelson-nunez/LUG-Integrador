@@ -41,9 +41,9 @@ namespace LUGIntegrador
                 VerificarDatos();
                 loggedperson = bllPersona.Login(email.Text, password.Text);
                 if (loggedperson != null)
-                {
                     OnLoginSuccess(loggedperson);
-                }
+                else
+                    MessageBox.Show("Credenciales inválidas");
             }
             catch (Exception ex)
             {
