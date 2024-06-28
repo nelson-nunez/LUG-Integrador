@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--Registro de Convocatorias.-->
+<Convocatorias>
+  <Convocatoria ID="1">
+    <Posicion>Delantero</Posicion>
+    <Confirmacion>true</Confirmacion>
+    <Fecha>2023-01-20T00:00:00</Fecha>
+    <Duracion>01:30:00</Duracion>
+    <Ubicacion>Estadio Nacional</Ubicacion>
+    <JugadorId>1</JugadorId>
+    <PartidoId>0</PartidoId>
+  </Convocatoria>
+</Convocatorias>

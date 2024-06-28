@@ -5,12 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Abstraccion.Extensiones;
+using UI_LUGIntegrador.Extensiones;
+using Microsoft.Reporting.WinForms;
+using LUGIntegrador.Controles;
+using UI_LUGIntegrador;
 
 namespace LUGIntegrador
 {
     public partial class Form_Convocatorias : Form
     {
-        #region Blls
+        #region Vars
 
         BLLCampeonato bllCampeonato;
         BLLPartido bllPartidos;
@@ -20,6 +24,9 @@ namespace LUGIntegrador
         Campeonato campeonatoActual;
         Equipo equipoActual;
         Partido partidoActual;
+        LINQtoXML linqToXml;
+
+        public event EventHandler<EventArgs> AbrirForm_Reporte;
 
         #endregion
 
@@ -31,6 +38,7 @@ namespace LUGIntegrador
             bllPartidos = new BLLPartido();
             bllConvocatoria = new BLLConvocatoria();
             bLLEquipo = new BLLEquipo();
+            linqToXml = new LINQtoXML();
 
             CargarCombos();
             dataGridView1.ConfigurarGrids();
@@ -58,13 +66,29 @@ namespace LUGIntegrador
 
         private void button_Buscar_Click(object sender, EventArgs e)
         {
-            var lista = bllConvocatoria.ListarConFiltros(campeonatoActual,equipoActual,null, partidoActual );
-            dataGridView1.CargarGrid(new List<string> { "Posicion", "Fecha", "Ubicacion", "NombreJugador", "Confirmacion" }, lista);
+            try
+            {
+                var lista = bllConvocatoria.ListarConFiltros(campeonatoActual, equipoActual, null, partidoActual);
+                dataGridView1.CargarGrid(new List<string> { "Posicion", "Fecha", "Ubicacion", "NombreJugador", "Confirmacion" }, lista);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void button_Imprimir_Click(object sender, EventArgs e)
         {
-
+            //Leo el xml
+            try
+            {
+                InputsExtensions.PedirConfirmacion();
+                AbrirForm_Reporte?.Invoke(this, new EventArgs());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         #endregion
@@ -118,6 +142,26 @@ namespace LUGIntegrador
         private void comboBox_Partidos_SelectedIndexChanged(object sender, EventArgs e)
         {
             partidoActual = comboBox_Partidos.SelectedItem as Partido;
+        }
+
+        //Guardar lista filtrada
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                InputsExtensions.PedirConfirmacion();
+                var lista = bllConvocatoria.ListarConFiltros(campeonatoActual, equipoActual, null, partidoActual);
+                if (lista.IsNOTNullOrEmpty())
+                {
+                    var response = linqToXml.CrearArchivo(lista);
+                    if (response)
+                        MessageBox.Show("Se guardó la lista como xml correctamente");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

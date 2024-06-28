@@ -1,19 +1,20 @@
 ﻿using Abstraccion;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Convocatoria = BE.Convocatoria;
 
 namespace LUGIntegrador
 {
-    public class LINQtoXML<Convocatoria> : IXmlOperable<Convocatoria>
+    public class LINQtoXML : IXmlOperable<Convocatoria>
     {
         private readonly string filePath;
 
-        public LINQtoXML(string filePath)
+        public LINQtoXML()
         {
-            this.filePath = filePath;
+            filePath = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, "Convocatorias.XML");
         }
 
         public bool Existe(Convocatoria item)
@@ -21,8 +22,8 @@ namespace LUGIntegrador
             try
             {
                 XDocument xmlDoc = XDocument.Load(filePath);
-                var query = from element in xmlDoc.Descendants(typeof(Convocatoria).Name)
-                            where element.Attribute("ID").Value == ((dynamic)item).Id.ToString()
+                var query = from element in xmlDoc.Descendants(nameof(Convocatoria))
+                            where element.Attribute("ID").Value == item.Id.ToString()
                             select element;
                 return query.Any();
             }
@@ -38,26 +39,23 @@ namespace LUGIntegrador
             {
                 XDocument xmlDoc = new XDocument(
                     new XDeclaration("1.0", "UTF-8", "yes"),
-                    new XComment("Registro de Convocatorias."));
+                    new XComment("Registro de Convocatorias."),
+                    new XElement("Convocatorias",
+                        lista.Select(convocatoria =>
+                            new XElement("Convocatoria",
+                                new XAttribute("ID", convocatoria.Id.ToString()),
+                                new XElement("Posicion", convocatoria.Posicion),
+                                new XElement("Confirmacion", convocatoria.Confirmacion),
+                                new XElement("Fecha", convocatoria.Fecha),
+                                new XElement("Duracion", convocatoria.Duracion.ToString()),
+                                new XElement("Ubicacion", convocatoria.Ubicacion),
+                                new XElement("JugadorId", convocatoria.Jugador?.Id),
+                                new XElement("PartidoId", convocatoria.Partido?.Id)
+                            )
+                        )
+                    )
+                );
 
-                XElement root = new XElement("Convocatorias");
-
-                foreach (var convocatoria in lista)
-                {
-                    XElement element = new XElement("Convocatoria",
-                        new XAttribute("ID", convocatoria.Id.ToString()),
-                        new XElement("Posicion", convocatoria.Posicion),
-                        new XElement("Confirmacion", convocatoria.Confirmacion),
-                        new XElement("Fecha", convocatoria.Fecha),
-                        new XElement("Duracion", convocatoria.Duracion.ToString()),
-                        new XElement("Ubicacion", convocatoria.Ubicacion),
-                        new XElement("JugadorId", convocatoria.JugadorId),
-                        new XElement("PartidoId", convocatoria.PartidoId));
-
-                    root.Add(element);
-                }
-
-                xmlDoc.Add(root);
                 xmlDoc.Save(filePath);
 
                 return true;
@@ -72,19 +70,19 @@ namespace LUGIntegrador
         {
             try
             {
+                XDocument xmlDoc = XDocument.Load(filePath);
                 var consulta =
-                    from element in XElement.Load(filePath).Elements("Convocatoria")
-                    select new Convocatoria
-                    {
-                        Id = Convert.ToInt64(element.Attribute("ID").Value),
-                        Posicion = element.Element("Posicion").Value,
-                        Confirmacion = Convert.ToBoolean(element.Element("Confirmacion").Value),
-                        Fecha = Convert.ToDateTime(element.Element("Fecha").Value),
-                        Duracion = TimeSpan.Parse(element.Element("Duracion").Value),
-                        Ubicacion = element.Element("Ubicacion").Value,
-                        JugadorId = Convert.ToInt64(element.Element("JugadorId").Value),
-                        PartidoId = Convert.ToInt64(element.Element("PartidoId").Value)
-                    };
+                    from element in xmlDoc.Descendants("Convocatoria")
+                    select new Convocatoria(
+                        Convert.ToInt64(element.Attribute("ID").Value),
+                        element.Element("Posicion").Value,
+                        Convert.ToBoolean(element.Element("Confirmacion").Value),
+                        Convert.ToDateTime(element.Element("Fecha").Value),
+                        TimeSpan.Parse(element.Element("Duracion").Value),
+                        element.Element("Ubicacion").Value,
+                        null, // Assuming you will set Jugador and Partido objects later
+                        null
+                    );
 
                 return consulta.ToList();
             }
@@ -107,8 +105,8 @@ namespace LUGIntegrador
                     new XElement("Fecha", convocatoria.Fecha),
                     new XElement("Duracion", convocatoria.Duracion.ToString()),
                     new XElement("Ubicacion", convocatoria.Ubicacion),
-                    new XElement("JugadorId", convocatoria.JugadorId),
-                    new XElement("PartidoId", convocatoria.PartidoId));
+                    new XElement("JugadorId", convocatoria.Jugador?.Id),
+                    new XElement("PartidoId", convocatoria.Partido?.Id));
 
                 xmlDoc.Element("Convocatorias").Add(element);
 

@@ -19,6 +19,7 @@ namespace LUGIntegrador
         private Form_Equipo formequipo;
         private Form_Persona formpersonas;
         private Form_Convocatorias formconvocatorias;
+        private Form_Reporte formreporte;
         private UC_Login uc_login;
 
         public Form_Menu()
@@ -49,6 +50,11 @@ namespace LUGIntegrador
         private void AbrirFormConvocatorias(object sender, EventArgs e)
         {
             AbrirFormGeneral(ref formconvocatorias);
+            formconvocatorias.AbrirForm_Reporte += AbrirFormReporte;
+        }
+        private void AbrirFormReporte(object sender, EventArgs e)
+        {
+            AbrirFormGeneral(ref formreporte);
         }
         private void AbrirFormCampeonato(object sender, EventArgs e)
         {

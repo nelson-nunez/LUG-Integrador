@@ -28,22 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.comboBox_Campeonatos = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBox_Equipos = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.button_Buscar = new System.Windows.Forms.Button();
             this.comboBox_Partidos = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button_Buscar = new System.Windows.Forms.Button();
             this.button_Limpiar = new System.Windows.Forms.Button();
             this.button_Imprimir = new System.Windows.Forms.Button();
+            this.comboBox_Equipos = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox_Campeonatos = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -59,21 +60,9 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Convocatorias";
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 184);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView1.Size = new System.Drawing.Size(696, 398);
-            this.dataGridView1.TabIndex = 124;
-            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.button_Buscar);
             this.groupBox2.Controls.Add(this.comboBox_Partidos);
             this.groupBox2.Controls.Add(this.label2);
@@ -89,45 +78,18 @@
             this.groupBox2.TabIndex = 156;
             this.groupBox2.TabStop = false;
             // 
-            // comboBox_Campeonatos
+            // button_Buscar
             // 
-            this.comboBox_Campeonatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox_Campeonatos.FormattingEnabled = true;
-            this.comboBox_Campeonatos.Location = new System.Drawing.Point(107, 15);
-            this.comboBox_Campeonatos.Name = "comboBox_Campeonatos";
-            this.comboBox_Campeonatos.Size = new System.Drawing.Size(268, 23);
-            this.comboBox_Campeonatos.TabIndex = 151;
-            this.comboBox_Campeonatos.SelectedIndexChanged += new System.EventHandler(this.comboBox_Campeonatos_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(6, 18);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 16);
-            this.label5.TabIndex = 150;
-            this.label5.Text = "Campeonato";
-            // 
-            // comboBox_Equipos
-            // 
-            this.comboBox_Equipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox_Equipos.FormattingEnabled = true;
-            this.comboBox_Equipos.Location = new System.Drawing.Point(107, 44);
-            this.comboBox_Equipos.Name = "comboBox_Equipos";
-            this.comboBox_Equipos.Size = new System.Drawing.Size(268, 23);
-            this.comboBox_Equipos.TabIndex = 153;
-            this.comboBox_Equipos.SelectedIndexChanged += new System.EventHandler(this.comboBox_Equipos_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(45, 47);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 16);
-            this.label1.TabIndex = 152;
-            this.label1.Text = "Equipo";
+            this.button_Buscar.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.button_Buscar.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Buscar.ForeColor = System.Drawing.Color.White;
+            this.button_Buscar.Location = new System.Drawing.Point(272, 115);
+            this.button_Buscar.Name = "button_Buscar";
+            this.button_Buscar.Size = new System.Drawing.Size(82, 36);
+            this.button_Buscar.TabIndex = 159;
+            this.button_Buscar.Text = "Buscar";
+            this.button_Buscar.UseVisualStyleBackColor = false;
+            this.button_Buscar.Click += new System.EventHandler(this.button_Buscar_Click);
             // 
             // comboBox_Partidos
             // 
@@ -149,25 +111,12 @@
             this.label2.TabIndex = 154;
             this.label2.Text = "Partido";
             // 
-            // button_Buscar
-            // 
-            this.button_Buscar.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.button_Buscar.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Buscar.ForeColor = System.Drawing.Color.White;
-            this.button_Buscar.Location = new System.Drawing.Point(305, 108);
-            this.button_Buscar.Name = "button_Buscar";
-            this.button_Buscar.Size = new System.Drawing.Size(82, 36);
-            this.button_Buscar.TabIndex = 159;
-            this.button_Buscar.Text = "Buscar";
-            this.button_Buscar.UseVisualStyleBackColor = false;
-            this.button_Buscar.Click += new System.EventHandler(this.button_Buscar_Click);
-            // 
             // button_Limpiar
             // 
             this.button_Limpiar.BackColor = System.Drawing.SystemColors.Highlight;
             this.button_Limpiar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Limpiar.ForeColor = System.Drawing.Color.White;
-            this.button_Limpiar.Location = new System.Drawing.Point(217, 109);
+            this.button_Limpiar.Location = new System.Drawing.Point(184, 117);
             this.button_Limpiar.Name = "button_Limpiar";
             this.button_Limpiar.Size = new System.Drawing.Size(82, 36);
             this.button_Limpiar.TabIndex = 157;
@@ -180,13 +129,79 @@
             this.button_Imprimir.BackColor = System.Drawing.SystemColors.Highlight;
             this.button_Imprimir.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_Imprimir.ForeColor = System.Drawing.Color.White;
-            this.button_Imprimir.Location = new System.Drawing.Point(393, 108);
+            this.button_Imprimir.Location = new System.Drawing.Point(448, 115);
             this.button_Imprimir.Name = "button_Imprimir";
             this.button_Imprimir.Size = new System.Drawing.Size(82, 36);
             this.button_Imprimir.TabIndex = 158;
             this.button_Imprimir.Text = "Imprimir";
             this.button_Imprimir.UseVisualStyleBackColor = false;
             this.button_Imprimir.Click += new System.EventHandler(this.button_Imprimir_Click);
+            // 
+            // comboBox_Equipos
+            // 
+            this.comboBox_Equipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox_Equipos.FormattingEnabled = true;
+            this.comboBox_Equipos.Location = new System.Drawing.Point(107, 44);
+            this.comboBox_Equipos.Name = "comboBox_Equipos";
+            this.comboBox_Equipos.Size = new System.Drawing.Size(268, 23);
+            this.comboBox_Equipos.TabIndex = 153;
+            this.comboBox_Equipos.SelectedIndexChanged += new System.EventHandler(this.comboBox_Equipos_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(45, 47);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 16);
+            this.label1.TabIndex = 152;
+            this.label1.Text = "Equipo";
+            // 
+            // comboBox_Campeonatos
+            // 
+            this.comboBox_Campeonatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox_Campeonatos.FormattingEnabled = true;
+            this.comboBox_Campeonatos.Location = new System.Drawing.Point(107, 15);
+            this.comboBox_Campeonatos.Name = "comboBox_Campeonatos";
+            this.comboBox_Campeonatos.Size = new System.Drawing.Size(268, 23);
+            this.comboBox_Campeonatos.TabIndex = 151;
+            this.comboBox_Campeonatos.SelectedIndexChanged += new System.EventHandler(this.comboBox_Campeonatos_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(6, 18);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(95, 16);
+            this.label5.TabIndex = 150;
+            this.label5.Text = "Campeonato";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 184);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.Size = new System.Drawing.Size(696, 398);
+            this.dataGridView1.TabIndex = 124;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.button1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(360, 116);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(82, 36);
+            this.button1.TabIndex = 160;
+            this.button1.Text = "Guardar lista xml";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form_Convocatorias
             // 
@@ -197,9 +212,9 @@
             this.Name = "Form_Convocatorias";
             this.Text = "Form_Convocatorias";
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -218,5 +233,6 @@
         private System.Windows.Forms.Button button_Buscar;
         private System.Windows.Forms.Button button_Limpiar;
         private System.Windows.Forms.Button button_Imprimir;
+        private System.Windows.Forms.Button button1;
     }
 }
