@@ -34,8 +34,8 @@
             this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cerrarTodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarTodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -81,8 +81,8 @@
             // 
             this.opcionesToolStripMenuItem.Image = global::LUGIntegrador.Properties.Resources.user;
             this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
-            this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(109, 20);
-            this.opcionesToolStripMenuItem.Text = "ABM Usuarios";
+            this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(104, 20);
+            this.opcionesToolStripMenuItem.Text = "Alta Muebles";
             this.opcionesToolStripMenuItem.Click += new System.EventHandler(this.AbrirFormPersona);
             // 
             // toolStripMenuItem1
@@ -95,6 +95,13 @@
             this.toolStripMenuItem1.Text = "Convocatorias";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.AbrirFormConvocatorias);
             // 
+            // reportesToolStripMenuItem
+            // 
+            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.reportesToolStripMenuItem.Text = "Reportes";
+            this.reportesToolStripMenuItem.Click += new System.EventHandler(this.AbrirFormReporte);
+            // 
             // cerrarTodoToolStripMenuItem
             // 
             this.cerrarTodoToolStripMenuItem.Image = global::LUGIntegrador.Properties.Resources.cerrar;
@@ -102,13 +109,6 @@
             this.cerrarTodoToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.cerrarTodoToolStripMenuItem.Text = "Salir";
             this.cerrarTodoToolStripMenuItem.Click += new System.EventHandler(this.CerrarTodosLosFormulariosHijos);
-            // 
-            // reportesToolStripMenuItem
-            // 
-            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.reportesToolStripMenuItem.Text = "Reportes";
-            this.reportesToolStripMenuItem.Click += new System.EventHandler(this.AbrirFormReporte);
             // 
             // Form_Menu
             // 
